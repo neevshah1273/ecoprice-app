@@ -12,15 +12,22 @@ class Product extends StatefulWidget {
 }
 
 class _ProductState extends State<Product> {
+
+
+
   @override
   Widget build(BuildContext context) {
-    return GridView(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-      children: [
-        Image.asset('lib/images/Tomato.jpeg'),
-        const Center(child: Text("Tomato", style: TextStyle(letterSpacing: 2, fontFamily: 'Light 300'),)),
-        const Center(child: Text("10.99 3.99")),
-        const Center(child: Text("Expires in x days")),
-      ]
+    return SizedBox(
+      height: 350,
+      child: GridView(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        children: [
+          Image.asset('lib/images/Tomato.jpeg'),
+          const Center(child: Text("Tomato", style: TextStyle(letterSpacing: 2, fontFamily: 'Light 300'),)),
+          const Center(child: Text("10.99 3.99")),
+          const Center(child: Text("Expires in x days")),
+        ]
+      ),
     );
   }
 }
