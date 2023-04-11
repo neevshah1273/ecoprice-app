@@ -52,8 +52,13 @@ class WelcomePage extends StatelessWidget {
               padding: EdgeInsets.all(60),
             child: Container(
                 width: 10,
-              child: FilledButton(
-                style: FilledButton.styleFrom(backgroundColor: Color(0xff40513B)),
+              child: ElevatedButton(
+
+                style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Color(0xff40513B))
+              ),
+
+    //Color(0xff40513B)),
                 onPressed: (){},
                 child: Text("GET STARTED"),
               ),

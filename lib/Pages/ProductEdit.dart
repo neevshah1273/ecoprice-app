@@ -67,8 +67,9 @@ class _ProductState extends State<ProductEdit> {
             ),
             Container(
                 margin: EdgeInsets.only(bottom: 5),
-                padding: EdgeInsetsDirectional.symmetric(
-                    horizontal: MediaQuery.of(context).size.width / 10),
+                padding: EdgeInsetsDirectional.fromSTEB(MediaQuery.of(context).size.width / 10, 0, MediaQuery.of(context).size.width / 10, 0),
+                // padding: EdgeInsetsDirectional.symmetric(
+                //     horizontal: MediaQuery.of(context).size.width / 10),
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Product Name",
@@ -79,8 +80,9 @@ class _ProductState extends State<ProductEdit> {
                 )),
             Container(
               margin: EdgeInsets.only(bottom: 10),
-              padding: EdgeInsetsDirectional.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 10),
+              padding: EdgeInsetsDirectional.fromSTEB(MediaQuery.of(context).size.width / 10, 0, MediaQuery.of(context).size.width / 10, 0),
+              // padding: EdgeInsetsDirectional.symmetric(
+              //     horizontal: MediaQuery.of(context).size.width / 10),
               child: TextField(
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -94,8 +96,9 @@ class _ProductState extends State<ProductEdit> {
             ),
             Container(
                 margin: EdgeInsets.only(bottom: 5),
-                padding: EdgeInsetsDirectional.symmetric(
-                    horizontal: MediaQuery.of(context).size.width / 10),
+                padding: EdgeInsetsDirectional.fromSTEB(MediaQuery.of(context).size.width / 10, 0, MediaQuery.of(context).size.width / 10, 0),
+                // padding: EdgeInsetsDirectional.symmetric(
+                //     horizontal: MediaQuery.of(context).size.width / 10),
                 alignment: Alignment.centerLeft,
                 child: Text("Current Price",
                     style: GoogleFonts.montserrat(
@@ -104,8 +107,9 @@ class _ProductState extends State<ProductEdit> {
                     ))),
             Container(
               margin: EdgeInsets.only(bottom: 10),
-              padding: EdgeInsetsDirectional.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 10),
+              padding: EdgeInsetsDirectional.fromSTEB(MediaQuery.of(context).size.width / 10, 0, MediaQuery.of(context).size.width / 10, 0),
+              // EdgeInsetsDirectional.symmetric(
+              //     horizontal: MediaQuery.of(context).size.width / 10),
               child: TextField(
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -119,8 +123,9 @@ class _ProductState extends State<ProductEdit> {
             ),
             Container(
                 margin: EdgeInsets.only(bottom: 5),
-                padding: EdgeInsetsDirectional.symmetric(
-                    horizontal: MediaQuery.of(context).size.width / 10),
+                padding: EdgeInsetsDirectional.fromSTEB(MediaQuery.of(context).size.width / 10, 0, MediaQuery.of(context).size.width / 10, 0),
+                // padding: EdgeInsetsDirectional.symmetric(
+                //     horizontal: MediaQuery.of(context).size.width / 10),
                 alignment: Alignment.centerLeft,
                 child: Text("Original Price",
                     style: GoogleFonts.montserrat(
@@ -129,8 +134,9 @@ class _ProductState extends State<ProductEdit> {
                     ))),
             Container(
               margin: EdgeInsets.only(bottom: 10),
-              padding: EdgeInsetsDirectional.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 10),
+              padding: EdgeInsetsDirectional.fromSTEB(MediaQuery.of(context).size.width / 10, 0, MediaQuery.of(context).size.width / 10, 0),
+              // padding: EdgeInsetsDirectional.symmetric(
+              //     horizontal: MediaQuery.of(context).size.width / 10),
               child: TextField(
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -144,8 +150,9 @@ class _ProductState extends State<ProductEdit> {
             ),
             Container(
                 margin: EdgeInsets.only(bottom: 5),
-                padding: EdgeInsetsDirectional.symmetric(
-                    horizontal: MediaQuery.of(context).size.width / 10),
+                padding: EdgeInsetsDirectional.fromSTEB(MediaQuery.of(context).size.width / 10, 0, MediaQuery.of(context).size.width / 10, 0),
+                // padding: EdgeInsetsDirectional.symmetric(
+                //     horizontal: MediaQuery.of(context).size.width / 10),
                 alignment: Alignment.centerLeft,
                 child: Text("Will Expire In ",
     style: GoogleFonts.montserrat(
@@ -154,8 +161,9 @@ class _ProductState extends State<ProductEdit> {
     ))),
             Container(
               margin: EdgeInsets.only(bottom: 10),
-              padding: EdgeInsetsDirectional.symmetric(
-                  horizontal: MediaQuery.of(context).size.width / 10),
+              padding: EdgeInsetsDirectional.fromSTEB(MediaQuery.of(context).size.width / 10, 0, MediaQuery.of(context).size.width / 10, 0),
+              // padding: EdgeInsetsDirectional.symmetric(
+              //     horizontal: MediaQuery.of(context).size.width / 10),
               child: TextField(
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
