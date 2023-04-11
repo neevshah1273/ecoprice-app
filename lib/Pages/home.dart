@@ -56,6 +56,7 @@ class _HomeState extends State<Home> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).primaryColor,
         items:  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(

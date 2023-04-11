@@ -1,8 +1,15 @@
-
+import 'package:ecoprice/Pages/Cart.dart';
+import 'package:ecoprice/Pages/Products.dart';
+import 'package:ecoprice/Pages/SignUp.dart';
+import 'package:ecoprice/Pages/UserLogin.dart';
+import 'package:ecoprice/Pages/WelcomePage.dart';
+import 'package:ecoprice/Pages/home.dart';
 import 'package:flutter/material.dart';
 import 'Pages/ProductEdit.dart';
+import 'Pages/ProductAdd.dart';
 
 void main() {
+
 
   runApp(MyApp());
 }
@@ -28,13 +35,15 @@ class MyApp extends StatelessWidget{
     return MaterialApp(
 
 
-      theme: ThemeData(
-        primarySwatch: mycolor,
-      ),
+      // theme: ThemeData(
+      //   primarySwatch: mycolor,
+      //   primaryColor: Color(0xff40513b),
+      // ),
       debugShowCheckedModeBanner: false,
-      home: ProductEdit(),
+      home: Products(),
     );
 
   }
+
 
 }
