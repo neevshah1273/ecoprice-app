@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'Pages/ProductEdit.dart';
 import 'Pages/ProductAdd.dart';
 import 'Pages/CheckOut.dart';
+import 'Pages/AdminProduct.dart';
+import 'Pages/DealProducts.dart';
 // import 'Pages/UserLogin.dart';
 
 void main() {
@@ -69,7 +71,7 @@ class MyApp extends StatelessWidget{
 
           var id = uri.pathSegments[1];
           //TODO:: Replace this with Product Page
-          return MaterialPageRoute(builder: (context) => ProductEdit());
+          return MaterialPageRoute(builder: (context) => AdminProduct());
 
         }
       },

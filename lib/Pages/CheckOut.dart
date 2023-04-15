@@ -2,6 +2,7 @@ import 'package:ecoprice/Pages/Style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Product.dart';
+import 'package:gif_view/gif_view.dart';
 import 'ColorGradient.dart';
 
 class CheckOut extends StatelessWidget {
@@ -20,10 +21,90 @@ class CheckOut extends StatelessWidget {
           title: Center(
             child: Text(
               "Check Out",
-              style: GoogleFonts.montserrat(),
+              style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w400,
+                fontSize: 25,
+              ),
             ),
           )),
-      body: Column(),
+      body: Column(
+        children: [
+          SizedBox(height: 100,),
+          Container(
+            height: 200,
+            width: 200,
+            decoration: BoxDecoration(
+              // color: Colors.blue,
+              borderRadius: BorderRadius.circular(10),
+            ),
+              child: Image.asset(
+                "lib/images/check-mark.png",
+                height: 200,
+                width: 200,
+                // default is 15 FPS
+              )
+          ),
+          SizedBox(height: 20,),
+          Text("Congratulations", style: GoogleFonts.montserrat(
+            fontSize: 30,
+            color: Style.primaryColor,
+            fontWeight: FontWeight.w500,
+          ),),
+          SizedBox(height: 20,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Your Savings : ", style: GoogleFonts.montserrat(
+                fontSize: 25,
+                color: Style.primaryColor,
+                fontWeight: FontWeight.w500,
+              ),),
+              Text("\$1.25", style: GoogleFonts.montserrat(
+                fontSize: 35,
+                color: Color(0xff3f7d27),
+                fontWeight: FontWeight.w500,
+              ),),
+            ],
+          ),
+          SizedBox(height: 20,),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Zero ", style: GoogleFonts.montserrat(
+                fontSize: 35,
+                color: Color(0xff3f7d27),
+                fontWeight: FontWeight.w500,
+              ),),
+              Text("Wastage  ", style: GoogleFonts.montserrat(
+                fontSize: 25,
+                color: Style.primaryColor,
+                fontWeight: FontWeight.w500,
+              ),),
+              Text("Go ", style: GoogleFonts.montserrat(
+                fontSize: 35,
+                color: Color(0xff3f7d27),
+                fontWeight: FontWeight.w500,
+              ),),
+              Text("Green", style: GoogleFonts.montserrat(
+                fontSize: 25,
+                color: Style.primaryColor,
+                fontWeight: FontWeight.w500,
+              ), ),
+            ],
+          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     Text("Zero"),
+          //     Text("Wastage"),
+          //   ],
+          // ),
+          Container(),
+          Container(),
+          Container(),
+        ],
+      ),
     );
   }
 }
