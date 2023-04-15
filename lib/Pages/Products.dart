@@ -1,7 +1,9 @@
 import 'package:ecoprice/Pages/Style.dart';
+import 'package:ecoprice/services/productService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Product.dart';
+
+import '../models/product.dart';
 import 'ColorGradient.dart';
 
 class Products extends StatefulWidget {
@@ -14,6 +16,23 @@ class Products extends StatefulWidget {
 class _ProductsState extends State<Products> {
   int _selectedIndex = 0;
   int buttonSelected = 1;
+
+  List<Product> products = [];
+
+  @override
+  void initState () {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      _getAllproducts();
+    });
+  print(products);
+  }
+
+  _getAllproducts() async {
+    products = await fetchAllProducts();
+
+  }
+
 
   void navigateHome(){
     Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
@@ -87,6 +106,8 @@ class _ProductsState extends State<Products> {
           SizedBox(
             height: 10,
           ),
+          for(int i=0;i<products.length;i++)Container(child: Text(products[i].title ?? ''),),
+
           ListTile(
               title: TextField(
                 decoration: InputDecoration(

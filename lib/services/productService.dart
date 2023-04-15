@@ -27,15 +27,16 @@ Future<Product> createProduct(Product product)async {
 }
 
 
-Future<List<Product>?> fetchAllProducts() async{
+Future<List<Product>> fetchAllProducts() async{
 
   Response response = await http.get(Uri.parse(ServerURL().url + '/product/getAll'));
 
 
-  return json.decode(response.body)['result']
+  List<dynamic> productList = json.decode(response.body)['result']
       .map((data) => Product.fromJson(data))
       .toList();
-
+  print(productList);
+  return productList.cast();
 }
 
 Future<Product> fetchProduct(String id) async {
