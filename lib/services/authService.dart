@@ -1,35 +1,45 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 import '../api/serverURL.dart';
+import '../models/user.dart';
 
 
-Future<void> signup() async {
+Future<User?> signup(String fullname, String mobileNumber, String email, String password) async {
 
   Response response = await http.post(
     Uri.parse(ServerURL().url + '/user/create'),
     body: {
-      'fullname' : '',
-      'password' : '',
-      'mobileNumber' : '',
+      'fullname' : fullname,
+      'password' : password,
+      'mobileNumber' : mobileNumber,
       'isAdminstritiveUser' : false
     }
   );
+  if(response.statusCode!=200)return null;
+
+  return User.fromJson(jsonDecode(response.body)['result']);
 
 }
 
-Future<bool> authenticate(String id, String password) async {
+Future<User?> authenticate(String id, String password) async {
 
   final queryParams = {
     'email': id,
     'password': password
   };
-  final uri = Uri.parse(ServerURL().url + '/user/get').replace(queryParameters: queryParams);
+
+  final uri = Uri.parse(ServerURL().url + '/user/get/'+id+'/'+password);
+  print(uri);
   Response response = await http.get(uri);
 
-  if(response.statusCode!=200)return false;
+  print(response.statusCode);
+  if(response.statusCode!=200)return null;
 
-  return true;
+  return User.fromJson(jsonDecode(response.body)['result']);
+
 
 }
 

@@ -1,6 +1,8 @@
 import 'package:ecoprice/Pages/Style.dart';
+import 'package:ecoprice/services/authService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/user.dart';
 import 'ColorGradient.dart';
 import 'Style.dart';
 
@@ -33,6 +35,9 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
 
+    User? user;
+
+
     void navigatelogin(){
       Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
     }
@@ -40,6 +45,36 @@ class _SignUpState extends State<SignUp> {
 
     void navigateHome(){
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+    }
+
+    void signUp() async {
+      navigateHome();
+
+      // print("Name : " + nameController.text);
+      // print("Phone Number : " + phoneNumberController.text);
+      // print("Email Address : " + emailAddressController.text);
+      // print("Password : " + passwordController.text);
+      // print("Confirm Password : " + confirmPasswordController.text);
+
+      if(passwordController.text!=confirmPasswordController.text) {
+        //TODO:: Add dialog box of password and confirm passwords must match
+      }
+
+      User? resultUser = await signup(
+          nameController.text,
+          phoneNumberController.text,
+          emailAddressController.text,
+          passwordController.text,
+          );
+      setState(() {
+        user = resultUser;
+      });
+      if(user != null){
+        navigateHome();
+
+      }
+      return ;
+
     }
 
 
@@ -220,16 +255,7 @@ class _SignUpState extends State<SignUp> {
                   children: <Widget>[
                     TextButton(
                       onPressed: (){
-                        navigateHome();
-
-                        print("Name : " + nameController.text);
-                        print("Phone Number : " + phoneNumberController.text);
-                        print("Email Address : " + emailAddressController.text);
-                        print("Password : " + passwordController.text);
-                        print("Confirm Password : " + confirmPasswordController.text);
-
-
-
+                        signUp();
 
 
 
