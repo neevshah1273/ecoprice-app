@@ -9,8 +9,22 @@ class WelcomePage extends StatelessWidget {
 
   const WelcomePage({Key? key}) : super(key: key);
 
+
+
+
+
   @override
   Widget build(BuildContext context) {
+
+    void navigateSignup(){
+      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+    }
+
+
+
+
+
+
     return Scaffold(
         appBar: AppBar(
         flexibleSpace: Container(
@@ -79,7 +93,9 @@ class WelcomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                   TextButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      navigateSignup();
+                    },
                     child: Text("Get Started", style: GoogleFonts.montserrat(
                       color: Colors.white,
                       fontSize: 20,

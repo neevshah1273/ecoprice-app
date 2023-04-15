@@ -40,7 +40,39 @@ class MyApp extends StatelessWidget{
       //   primaryColor: Color(0xff40513b),
       // ),
       debugShowCheckedModeBanner: false,
-      home: Products(),
+      onGenerateRoute: (settings){
+        if(settings.name == '/'){
+          return MaterialPageRoute(builder: (context) => WelcomePage());
+        }
+        if(settings.name == '/signup'){
+          return MaterialPageRoute(builder: (context) => SignUp());
+        }
+        if(settings.name == '/login'){
+          return MaterialPageRoute(builder: (context) => UserLogin());
+
+        }
+        if(settings.name == '/home'){
+          return MaterialPageRoute(builder: (context) => Products());
+
+        }
+        if(settings.name == '/addProduct'){
+          return MaterialPageRoute(builder: (context) => ProductAdd());
+        }
+        if(settings.name == '/editProduct'){
+          return MaterialPageRoute(builder: (context) => ProductEdit());
+        }
+
+        // product/:id
+        var uri = Uri.parse(settings.name ?? '');
+
+        if(uri.pathSegments.length == 2 && uri.pathSegments.first == 'product'){
+
+          var id = uri.pathSegments[1];
+          //TODO:: Replace this with Product Page
+          return MaterialPageRoute(builder: (context) => ProductEdit());
+
+        }
+      },
     );
 
   }

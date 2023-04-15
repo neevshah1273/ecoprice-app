@@ -9,6 +9,17 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    void navigatelogin(){
+      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+    }
+
+
+    void navigateHome(){
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+    }
+
+
     return Scaffold(
       appBar: AppBar(
           flexibleSpace: Container(
@@ -180,7 +191,9 @@ class SignUp extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     TextButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        navigateHome();
+                      },
                       child: Text("Sign In", style: GoogleFonts.montserrat(
                         color: Colors.white,
                         fontSize: 20,
@@ -200,7 +213,9 @@ class SignUp extends StatelessWidget {
                 ),
                 // alignment: Alignment.centerLeft,
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      navigatelogin();
+                    },
                     child: Text(
                       "Already have account ?",
                       style: GoogleFonts.montserrat(
