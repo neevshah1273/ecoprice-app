@@ -15,10 +15,47 @@ class _ProductsState extends State<Products> {
   int _selectedIndex = 0;
   int buttonSelected = 1;
 
+  void navigateHome(){
+    Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+
+  }
+
+  void navigateDeals(){
+    Navigator.pushNamedAndRemoveUntil(context, '/deals', (route) => false);
+
+  }
+
+  void navigateQRCode(){
+    Navigator.pushNamedAndRemoveUntil(context, '/qr_scanner', (route) => false);
+
+  }
+
+  void navigateCart(){
+    Navigator.pushNamedAndRemoveUntil(context, '/cart', (route) => false);
+
+  }
+
+  void navigateProduct(String id){
+    Navigator.pushNamedAndRemoveUntil(context, '/product/${id}', (route) => false);
+
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       buttonSelected = index + 1;
+      if(_selectedIndex==0){
+        navigateHome();
+      }
+      if(_selectedIndex==1){
+        navigateDeals();
+      }
+      else if(_selectedIndex==2){
+        navigateQRCode();
+      }
+      else if(_selectedIndex==3){
+        navigateCart();
+      }
     });
   }
 
@@ -190,119 +227,102 @@ class _ProductsState extends State<Products> {
           )
         ],
       ),
-      bottomNavigationBar: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          gradient: ColorGradient.getGradient(),
-        ),
-        child: BottomNavigationBar(
-          backgroundColor: Colors.transparent,
-          // selectedItemColor: Colors.white,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-                color: buttonSelected == 1 ? Colors.white : Colors.black,
-              ),
-              label: 'Home',
-                backgroundColor: Colors.transparent
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.discount,
-                color: buttonSelected == 2 ? Colors.white : Colors.black,
-              ),
-              label: 'Deals',
-              // backgroundColor: Colors.white,
-                backgroundColor: Colors.transparent
-            ),
-            BottomNavigationBarItem(icon: Icon(
-              Icons.qr_code_scanner,
-              color: buttonSelected == 3 ? Colors.white : Colors.black,
-            ),
-              label: "QR Code"
-                ,backgroundColor: Colors.transparent
-            ),
-            BottomNavigationBarItem(icon: Icon(
-              Icons.shopping_cart,
-              color: buttonSelected == 4 ? Colors.white : Colors.black,
-            ),
-                label: "Chart",
-                backgroundColor: Colors.transparent)
-            // BottomNavigationBarItem(icon: Icon(
-            //   Icons.shopping_cart,
-            //   color: buttonSelected == 4 ? Colors.white : Colors.black,
-            // ),
-            //     label: "My Cart",
-            // )
-            // BottomNavigationBarItem(
-            //   icon: Icon(
-            //     Icons.qr_code_scanner,
-            //     color: buttonSelected == 3 ? Colors.white : Colors.black,
-            //   ),
-            //   label: 'Scan QR',
-            // ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.shopping_cart,
-            //       color: buttonSelected == 4 ? Colors.white : Colors.black),
-            //   label: 'My Cart',
-            // ),
-          ],
-            currentIndex: _selectedIndex,
+          bottomNavigationBar: Container(
+                  height: 60,
+                  decoration: BoxDecoration(
+                    gradient: ColorGradient.getGradient(),
+                  ),
+                  child: BottomNavigationBar(
+                    backgroundColor: Colors.transparent,
+                    // selectedItemColor: Colors.white,
+                    items: <BottomNavigationBarItem>[
+                      BottomNavigationBarItem(
+                        icon: Icon(
+                          Icons.home,
+                          color: buttonSelected == 1 ? Colors.white : Colors.black,
+                        ),
+                        label: 'Home',
+                          backgroundColor: Colors.transparent
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(
+                          Icons.discount,
+                          color: buttonSelected == 2 ? Colors.white : Colors.black,
+                        ),
+                        label: 'Deals',
+                        // backgroundColor: Colors.white,
+                          backgroundColor: Colors.transparent
+                      ),
+                      BottomNavigationBarItem(icon: Icon(
+                        Icons.qr_code_scanner,
+                        color: buttonSelected == 3 ? Colors.white : Colors.black,
+                      ),
+                        label: "QR Code"
+                          ,backgroundColor: Colors.transparent
+                      ),
+                      BottomNavigationBarItem(icon: Icon(
+                        Icons.shopping_cart,
+                        color: buttonSelected == 4 ? Colors.white : Colors.black,
+                      ),
+                          label: "Chart",
+                          backgroundColor: Colors.transparent)
 
-            selectedLabelStyle: GoogleFonts.montserrat(
-              fontSize: 15,
-            ),
+                    ],
+                      currentIndex: _selectedIndex,
 
-            onTap: _onItemTapped,
-        ),
+                      selectedLabelStyle: GoogleFonts.montserrat(
+                        fontSize: 15,
+                      ),
 
-        // child: BottomNavigationBar(
-        //   // backgroundColor: Theme.of(context).primaryColor,
-        //
-        //   type: BottomNavigationBarType.shifting,
-        //   selectedItemColor: Colors.white,
-        //
-        //   items: <BottomNavigationBarItem>[
-        //     BottomNavigationBarItem(
-        //       icon: Icon(
-        //         Icons.home,
-        //         color: buttonSelected == 1 ? Colors.white : Colors.black,
-        //       ),
-        //       label: 'Home',
-        //
-        //       // backgroundColor: Theme.of(context).primaryColor
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(
-        //         Icons.discount,
-        //         color: buttonSelected == 2 ? Colors.white : Colors.black,
-        //       ),
-        //       label: 'Deals',
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(
-        //         Icons.qr_code_scanner,
-        //         color: buttonSelected == 3 ? Colors.white : Colors.black,
-        //       ),
-        //       label: 'Scan QR',
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.person,
-        //           color: buttonSelected == 4 ? Colors.white : Colors.black),
-        //       label: 'My Profile',
-        //     ),
-        //   ],
-        //   currentIndex: _selectedIndex,
-        //
-        //   selectedLabelStyle: GoogleFonts.montserrat(
-        //     fontSize: 15,
-        //     color: Colors.white,
-        //   ),
-        //
-        //   onTap: _onItemTapped,
-        // ),
-      ),
+                      onTap: _onItemTapped,
+                  ),
+
+                  // child: BottomNavigationBar(
+                  //   // backgroundColor: Theme.of(context).primaryColor,
+                  //
+                  //   type: BottomNavigationBarType.shifting,
+                  //   selectedItemColor: Colors.white,
+                  //
+                  //   items: <BottomNavigationBarItem>[
+                  //     BottomNavigationBarItem(
+                  //       icon: Icon(
+                  //         Icons.home,
+                  //         color: buttonSelected == 1 ? Colors.white : Colors.black,
+                  //       ),
+                  //       label: 'Home',
+                  //
+                  //       // backgroundColor: Theme.of(context).primaryColor
+                  //     ),
+                  //     BottomNavigationBarItem(
+                  //       icon: Icon(
+                  //         Icons.discount,
+                  //         color: buttonSelected == 2 ? Colors.white : Colors.black,
+                  //       ),
+                  //       label: 'Deals',
+                  //     ),
+                  //     BottomNavigationBarItem(
+                  //       icon: Icon(
+                  //         Icons.qr_code_scanner,
+                  //         color: buttonSelected == 3 ? Colors.white : Colors.black,
+                  //       ),
+                  //       label: 'Scan QR',
+                  //     ),
+                  //     BottomNavigationBarItem(
+                  //       icon: Icon(Icons.person,
+                  //           color: buttonSelected == 4 ? Colors.white : Colors.black),
+                  //       label: 'My Profile',
+                  //     ),
+                  //   ],
+                  //   currentIndex: _selectedIndex,
+                  //
+                  //   selectedLabelStyle: GoogleFonts.montserrat(
+                  //     fontSize: 15,
+                  //     color: Colors.white,
+                  //   ),
+                  //
+                  //   onTap: _onItemTapped,
+                  // ),
+                ),
     ));
   }
 }

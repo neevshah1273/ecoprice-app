@@ -1,4 +1,5 @@
 import 'package:ecoprice/Pages/Style.dart';
+import 'package:ecoprice/services/authService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'ColorGradient.dart';
@@ -9,6 +10,16 @@ class UserLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+    void navigateSignup(){
+      Navigator.pushNamedAndRemoveUntil(context, '/signup', (route) => false);
+
+    }
+    void navigateHome(){
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+    }
+
     return Scaffold(
         appBar: AppBar(
           flexibleSpace: Container(
@@ -98,7 +109,9 @@ class UserLogin extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           TextButton(
-                            onPressed: (){},
+                            onPressed: (){
+                              navigateHome();
+                            },
                             child: Text("Sign In", style: GoogleFonts.montserrat(
                               color: Colors.white,
                               fontSize: 20,
@@ -115,7 +128,9 @@ class UserLogin extends StatelessWidget {
                 ),
                 Center(
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        navigateSignup();
+                      },
                       child: Text(
                         "Don't have an account?",
                         style: GoogleFonts.montserrat(
