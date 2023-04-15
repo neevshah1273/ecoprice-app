@@ -1,5 +1,6 @@
 import 'package:ecoprice/Pages/Style.dart';
 import 'package:ecoprice/services/productService.dart';
+import 'package:ecoprice/widgets/productGridViewWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -29,8 +30,12 @@ class _ProductsState extends State<Products> {
   }
 
   _getAllproducts() async {
-    products = await fetchAllProducts();
 
+    List<Product> prod = await fetchAllProducts();
+
+    setState(()  {
+      products = prod;
+    });
   }
 
 
@@ -131,121 +136,17 @@ class _ProductsState extends State<Products> {
                     color: Style.iconColor,
                     size: 30,
                   ))),
-          Expanded(
-            child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 2.5,
-                    crossAxisSpacing: 2.5),
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          width: 1,
-                          color: Color(0xff000000),
-                        )),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Center(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.asset("lib/images/Tomato.png",
-                                width: 100, height: 100),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "Roma Tomato",
-                              style: GoogleFonts.montserrat(
-                                fontSize: 17.5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              "2lbs",
-                              style: GoogleFonts.montserrat(
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "\$1.25",
-                              style: GoogleFonts.montserrat(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "\$1.88",
-                              style: GoogleFonts.montserrat(
-                                  decoration: TextDecoration.lineThrough,
-                                  color: Colors.red),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "Expires in",
-                              style: GoogleFonts.montserrat(
-                                fontSize: 15,
-                                color: Colors.black54,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "2 days",
-                              style: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black87),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    // decoration: BoxDecoration(
-                    //   borderRadius: BorderRadius.circular(2)
-                    // ),
-                    margin: EdgeInsets.all(10),
-                    height: 100,
-                    width: 100,
-                    // color: Colors.white,
-                  );
-                }),
-          )
+                  Expanded(
+                    child: GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 2.5,
+                            crossAxisSpacing: 2.5),
+                            itemCount: products.length,
+                            itemBuilder: (context, index) {
+                          return ProductGridViewWidget(products[index]);
+                        }),
+                  )
         ],
       ),
           bottomNavigationBar: Container(
