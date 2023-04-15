@@ -14,7 +14,12 @@ class _ProductState extends State<ProductEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Product"),
+        centerTitle: true,
+        title: Text("Edit Product", style: GoogleFonts.montserrat(
+          fontWeight: FontWeight.w400,
+          fontSize: 25,
+        ),),
+        backgroundColor: Style.primaryColor,
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -37,9 +42,13 @@ class _ProductState extends State<ProductEdit> {
                           color: Colors.white38,
                           width: 2.0,
                         )),
-                    child: Image.asset("lib/images/Tomato.png",
-                        height: MediaQuery.of(context).size.height / 5,
-                        width: MediaQuery.of(context).size.width / 3)),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                      child: Image.asset("lib/images/Tomato.png",
+                          height: MediaQuery.of(context).size.height / 5,
+                          width: MediaQuery.of(context).size.width / 3,
+                          fit: BoxFit.cover),
+                    )),
                 Container(
                   child: Column(
                     children: <Widget>[
@@ -47,7 +56,9 @@ class _ProductState extends State<ProductEdit> {
                           width: 100,
                           child: ElevatedButton(
                             onPressed: () {},
-                            child: Text("Save"),
+                            child: Text("Save", style: GoogleFonts.montserrat(
+                              fontSize: 17.5,
+                            ),),
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
                                     Color(0xff40513b))),
@@ -56,7 +67,9 @@ class _ProductState extends State<ProductEdit> {
                           width: 100,
                           child: ElevatedButton(
                               onPressed: () {},
-                              child: Text("Cancel"),
+                              child: Text("Cancel", style: GoogleFonts.montserrat(
+                                fontSize: 17.5,
+                              ),),
                               style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
                                       Color(0xff40513b))))),
@@ -74,7 +87,7 @@ class _ProductState extends State<ProductEdit> {
                 child: Text(
                   "Product Name",
                   style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w500,
                     fontSize: 20,
                   ),
                 )),
@@ -88,7 +101,7 @@ class _ProductState extends State<ProductEdit> {
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    hintStyle: TextStyle(color: Colors.black),
+                    hintStyle: GoogleFonts.montserrat(),
                     hintText: "Product Name",
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
@@ -102,7 +115,7 @@ class _ProductState extends State<ProductEdit> {
                 alignment: Alignment.centerLeft,
                 child: Text("Current Price",
                     style: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                       fontSize: 20,
                     ))),
             Container(
@@ -115,7 +128,7 @@ class _ProductState extends State<ProductEdit> {
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    hintStyle: TextStyle(color: Colors.black),
+                    hintStyle: GoogleFonts.montserrat(),
                     hintText: "Current Price",
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
@@ -129,7 +142,7 @@ class _ProductState extends State<ProductEdit> {
                 alignment: Alignment.centerLeft,
                 child: Text("Original Price",
                     style: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                       fontSize: 20,
                     ))),
             Container(
@@ -142,7 +155,7 @@ class _ProductState extends State<ProductEdit> {
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    hintStyle: TextStyle(color: Colors.black),
+                    hintStyle: GoogleFonts.montserrat(),
                     hintText: "Original Price",
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
@@ -156,7 +169,7 @@ class _ProductState extends State<ProductEdit> {
                 alignment: Alignment.centerLeft,
                 child: Text("Will Expire In ",
     style: GoogleFonts.montserrat(
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w500,
     fontSize: 20,
     ))),
             Container(
@@ -169,7 +182,7 @@ class _ProductState extends State<ProductEdit> {
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    hintStyle: TextStyle(color: Colors.black),
+                    hintStyle: GoogleFonts.montserrat(),
                     hintText: "Days left",
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 10, vertical: 5)),

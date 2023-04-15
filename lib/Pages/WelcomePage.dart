@@ -1,9 +1,10 @@
 import 'dart:ffi';
-
+import 'Style.dart';
+import 'ColorGradient.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class WelcomePage extends StatelessWidget {
-
   // double screenWidth = MediaQuery.of(context).size.width;
 
   const WelcomePage({Key? key}) : super(key: key);
@@ -11,63 +12,87 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff40513b),
-        title: Center(
-          child: Text("Welcome to Eco-Price"),
-        )
-      ),
-      body: ListView(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(50),
-            child: Image.asset('lib/images/image33.png',
-                width: 200,
-                height: 200),
-          ),
-          Container(
-            child: Center(
-              child: Text("EcoPrice",
-              style: TextStyle(color: Color(0xff40513b),
-              fontWeight: FontWeight.bold,
-              fontSize: 48),),
-            ),
-            padding: EdgeInsets.all(20),
-          ),
-          Container(
-            child: Center(
-              child: Text("Minimum Wastage",
-              style: TextStyle(color: Color(0xff609966),
-                  fontSize: 24),),
-            ),
-          ),
-          Container(
-            child: Center(
-              child: Text("Maximum Savings", 
-              style: TextStyle(color: Color(0xff609966),
-              fontSize: 24),)
-            ),
-          ),
-          Padding(
-              padding: EdgeInsets.all(60),
-            child: Container(
-                width: 10,
-              child: ElevatedButton(
-
-                style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Color(0xff40513B))
+        appBar: AppBar(
+        flexibleSpace: Container(
+        decoration: BoxDecoration(
+        gradient: ColorGradient.getGradient(degree: 140), // Set the gradient
+    ),),
+            // backgroundColor: Color(0xff40513b),
+            title: Center(
+              child: Text(
+                "Welcome to Eco-Price",
+                style: GoogleFonts.montserrat(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
-
-    //Color(0xff40513B)),
-                onPressed: (){},
-                child: Text("GET STARTED"),
+            )),
+        body: ListView(
+          children: <Widget>[
+            const SizedBox(
+              height: 30,
+            ),
+            Container(
+              padding: const EdgeInsets.all(50),
+              child:
+                  Image.asset('lib/images/logo.png', width: 200, height: 200),
+            ),
+            Center(
+              child: Text(
+                "Eco-Price",
+                style: GoogleFonts.montserrat(
+                  fontSize: 50,
+                  fontWeight: FontWeight.w500,
+                  color: Style.primaryColor,
+                ),
               ),
             ),
-          ),
+            const SizedBox(
+              height: 30,
+            ),
+            Center(
+              child: Text(
+                "Minimum Wastage",
+                style: GoogleFonts.kalam(
+                  fontSize: 30,
+                ),
+              ),
+            ),
+            Center(
+                child: Text(
+              "Maximum Savings",
+              style: GoogleFonts.kalam(
+                fontSize: 40,
+              ),
+            )),
+            const SizedBox(
+              height: 30,
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 0.25 * MediaQuery.of(context).size.width, right: 0.25 * MediaQuery.of(context).size.width),
+              decoration: BoxDecoration(
+                gradient: ColorGradient.getGradient(),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                  TextButton(
+                    onPressed: (){},
+                    child: Text("Get Started", style: GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),),
+                  ),
+                    Icon(Icons.arrow_forward_ios_sharp, color: Colors.white,),
 
-        ],
-      )
-      );
+                  ],
+                )
+              ),
+            ),
+          ],
+        ));
     // );
   }
 }
