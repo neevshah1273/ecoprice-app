@@ -2,6 +2,7 @@ import 'package:ecoprice/Pages/Style.dart';
 import 'package:ecoprice/services/authService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/user.dart';
 import 'ColorGradient.dart';
 import 'Style.dart';
 
@@ -14,6 +15,13 @@ class UserLogin extends StatefulWidget {
 
 class _UserLoginState extends State<UserLogin> {
 
+  User? user;
+
+  @override
+  void initState(){
+
+  }
+
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -24,6 +32,7 @@ class _UserLoginState extends State<UserLogin> {
     passwordController.dispose();
     super.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +45,23 @@ class _UserLoginState extends State<UserLogin> {
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     }
 
-   String userName = "";
+    void logIn() async {
+
+
+
+      User? resultUser = await authenticate(userNameController.text, passwordController.text);
+      setState(() {
+        user = resultUser;
+      });
+      if(user != null){
+        navigateHome();
+
+      }
+      return ;
+    }
+
+
+    String userName = "";
 
     return Scaffold(
         appBar: AppBar(
@@ -133,13 +158,13 @@ class _UserLoginState extends State<UserLogin> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           TextButton(
-                            onPressed: (){
+                            onPressed: () {
 
-                              navigateHome();
+                              logIn();
 
                               // print('Input value: $userName');
-                              print('Username:  ' + userNameController.text);
-                              print('Password:  ' + passwordController.text);
+                              // print('Username:  ' + userNameController.text);
+                              // print('Password:  ' + passwordController.text);
 
                             },
                             child: Text("Sign In", style: GoogleFonts.montserrat(
