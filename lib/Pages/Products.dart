@@ -34,6 +34,9 @@ class _ProductsState extends State<Products> {
   List<Product> products = [];
   List<Product> selectedProducts = [];
 
+
+
+
   void onCategorySelection(String selection){
     setState(() {
       selectedCategory = selection;
@@ -191,6 +194,7 @@ class _ProductsState extends State<Products> {
         ),
             centerTitle: true,
             actions: <Widget>[
+
 
               (user?.isAdminstritiveUser ?? false)? IconButton(
                 icon: Icon(

@@ -1,41 +1,53 @@
+import 'package:ecoprice/models/Cart.dart';
+import 'package:ecoprice/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Style.dart';
 
 class CounterApp extends StatefulWidget {
+  Product product;
+  CounterApp(this.product);
+
   @override
   _CounterAppState createState() => _CounterAppState();
 }
 
 class _CounterAppState extends State<CounterApp> {
+
+
   int _counter = 0;
 
-  void _incrementCounter() {
+  void _incrementCounter(Product product) {
     setState(() {
-      _counter++;
+      Cart.addProductQuantity(product);
     });
+
   }
 
-  void _decrementCounter() {
+  void _decrementCounter(Product product) {
 
-    if(_counter > 0){
+    if(Cart.getProductQuantity(product)>0) {
       setState(() {
-        _counter--;
+        Cart.removeProductQuantity(product);
       });
     }
+
   }
 
   @override
   Widget build(BuildContext context) {
+
+    Product product = widget.product;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextButton(
-          onPressed: _decrementCounter,
+          onPressed: () => _decrementCounter(product),
           child: Icon(Icons.remove, color: Colors.green,),
         ),
         Text(
-          '$_counter',
+          Cart.getProductQuantity(product).toString(),
           style: GoogleFonts.montserrat(
             fontSize: 20,
             fontWeight: FontWeight.w500,
@@ -50,7 +62,7 @@ class _CounterAppState extends State<CounterApp> {
           // style: TextButton.styleFrom(
           //   fixedSize: Size(10, 10),
           // ),
-          onPressed: _incrementCounter,
+          onPressed: () => _incrementCounter(product),
           child: Icon(Icons.add, color: Colors.green,),
         ),
       ],

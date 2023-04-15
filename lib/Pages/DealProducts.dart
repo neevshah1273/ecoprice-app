@@ -5,9 +5,6 @@ import 'package:ecoprice/widgets/productGridViewWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/product.dart';
-import 'ItemCounter.dart';
-import 'FilterProductDialog.dart';
-import 'Product.dart';
 import 'ColorGradient.dart';
 
 class DealProducts extends StatefulWidget {
