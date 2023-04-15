@@ -4,14 +4,14 @@ const double imageWidth = 100;
 const double imageHeight = 100;
 const double containerWidth = 220;
 
-class Product extends StatefulWidget {
-  const Product({Key? key}) : super(key: key);
+class ProductPage extends StatefulWidget {
+  const ProductPage({Key? key}) : super(key: key);
 
   @override
-  State<Product> createState() => _ProductState();
+  State<ProductPage> createState() => _ProductPageState();
 }
 
-class _ProductState extends State<Product> {
+class _ProductPageState extends State<ProductPage> {
 
 
 
