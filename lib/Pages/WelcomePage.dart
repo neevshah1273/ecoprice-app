@@ -102,7 +102,6 @@ class WelcomePage extends StatelessWidget {
                     ),),
                   ),
                     Icon(Icons.arrow_forward_ios_sharp, color: Colors.white,),
-
                   ],
                 )
               ),
