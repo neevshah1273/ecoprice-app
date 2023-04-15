@@ -1,3 +1,5 @@
+import 'package:ecoprice/models/product.dart';
+import 'package:ecoprice/services/productService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Style.dart';
@@ -16,7 +18,14 @@ class _ProductState extends State<ProductAdd> {
   final currentPriceController = TextEditingController();
   final originalPriceController = TextEditingController();
   final expirationDaysLeftController = TextEditingController();
-  
+
+
+  void create() async{
+//    Product product = Product(id: '', title: productNameController.text, category: category, image: image, dueDate: dueDate, quantity: quantity, currentPrice: currentPrice, originalPrice: originalPrice, dailyConsume: dailyConsume)
+//    Product createdProduct = await createProduct(product);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
