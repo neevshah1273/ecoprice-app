@@ -3,8 +3,9 @@ import 'package:ecoprice/services/productService.dart';
 import 'package:ecoprice/widgets/productGridViewWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../models/product.dart';
+import 'FilterProductDialog.dart';
+import 'Product.dart';
 import 'ColorGradient.dart';
 
 class Products extends StatefulWidget {
@@ -89,15 +90,16 @@ class _ProductsState extends State<Products> {
 
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient:
+          appBar: AppBar(
+            flexibleSpace: Container(
+              decoration: BoxDecoration(
+                gradient:
                 ColorGradient.getGradient(degree: 140), // Set the gradient
+
           ),
         ),
         backgroundColor: Style.primaryColor,
-        title: Text(
+            title: Text(
           "Products",
           style: GoogleFonts.montserrat(
             fontWeight: FontWeight.w400,
@@ -106,14 +108,12 @@ class _ProductsState extends State<Products> {
         ),
         centerTitle: true,
       ),
-      body: Column(
+            body: Column(
         children: <Widget>[
           SizedBox(
             height: 10,
           ),
-          for(int i=0;i<products.length;i++)Container(child: Text(products[i].title ?? ''),),
-
-          ListTile(
+              ListTile(
               title: TextField(
                 decoration: InputDecoration(
                     hintText: "Search",
@@ -129,26 +129,99 @@ class _ProductsState extends State<Products> {
                       borderRadius: BorderRadius.circular(10),
                     )),
               ),
-              trailing: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.filter_alt_outlined,
-                    color: Style.iconColor,
-                    size: 30,
+    ),
+              Container(
+            margin: EdgeInsets.only(top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children : [
+                Container(
+                  margin: EdgeInsets.only(right: 10),
+                  height: 50,
+                  width: 0.2 * MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Color(0xff9acd32),
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextButton(onPressed: (){}, child:
+                  Text("All", style: GoogleFonts.montserrat(
+                    fontSize: 17.5,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
                   ))),
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: 10),
+                  height: 50,
+                  width: 0.2 * MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextButton(onPressed: (){}, child:
+                  Text("Fruits", style: GoogleFonts.montserrat(
+                    fontSize: 17.5,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ))),
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: 10),
+                  height: 50,
+                  width: 0.25 * MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextButton(onPressed: (){}, child:
+                  Text("Veggies", style: GoogleFonts.montserrat(
+                    fontSize: 17.5,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ))),
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: 10),
+                  height: 50,
+                  width: 0.2 * MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextButton(onPressed: (){}, child:
+                  Text("Dairy", style: GoogleFonts.montserrat(
+                    fontSize: 17.5,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ))),
+                ),
+              ],
+            ),
+          ),
+
+
+
+
                   Expanded(
-                    child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 2.5,
-                            crossAxisSpacing: 2.5),
-                            itemCount: products.length,
-                            itemBuilder: (context, index) {
-                          return ProductGridViewWidget(products[index]);
-                        }),
-                  )
-        ],
-      ),
+                  child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 2.5,
+                      crossAxisSpacing: 2.5),
+
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      return ProductGridViewWidget(products[index]);
+                    }),
+            ),
+
+      ]
+    ),
+
 
       bottomNavigationBar: Container(
         height: 60,
@@ -193,11 +266,11 @@ class _ProductsState extends State<Products> {
 
           selectedLabelStyle: GoogleFonts.montserrat(
             fontSize: 15,
-          ),
-          onTap: _onItemTapped,
-        ),
-      ),
 
-    ));
+          ),
+          )
+        )
+      )
+    );
   }
 }
