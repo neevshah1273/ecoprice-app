@@ -5,12 +5,28 @@ import 'package:google_fonts/google_fonts.dart';
 import 'ColorGradient.dart';
 import 'Style.dart';
 
-class UserLogin extends StatelessWidget {
+class UserLogin extends StatefulWidget {
   const UserLogin({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<UserLogin> createState() => _UserLoginState();
+}
 
+class _UserLoginState extends State<UserLogin> {
+
+  final userNameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    userNameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     void navigateSignup(){
       Navigator.pushNamedAndRemoveUntil(context, '/signup', (route) => false);
@@ -19,6 +35,8 @@ class UserLogin extends StatelessWidget {
     void navigateHome(){
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     }
+
+   String userName = "";
 
     return Scaffold(
         appBar: AppBar(
@@ -39,7 +57,7 @@ class UserLogin extends StatelessWidget {
         ),
         body: Container(
           margin:
-              EdgeInsets.only(top: 0.08 * MediaQuery.of(context).size.height),
+          EdgeInsets.only(top: 0.08 * MediaQuery.of(context).size.height),
           child: Center(
             child: ListView(
               children: <Widget>[
@@ -52,6 +70,11 @@ class UserLogin extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 7.5),
                   child: TextField(
+                    controller: userNameController,
+                    onChanged: (value){
+                      userName = value;
+                    },
+                    // controller: myController,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(
                           Icons.person,
@@ -60,23 +83,24 @@ class UserLogin extends StatelessWidget {
                         focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                            BorderRadius.all(Radius.circular(10))),
                         enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                            BorderRadius.all(Radius.circular(10))),
                         hintStyle: GoogleFonts.montserrat(
                           color: Style.primaryColor,
                         ),
                         hintText: "Enter Username",
                         contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
                   ),
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.only(left: 50, right: 50, top: 10, bottom: 20),
+                  const EdgeInsets.only(left: 50, right: 50, top: 10, bottom: 20),
                   child: TextField(
+                    controller: passwordController,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(
                           Icons.lock,
@@ -85,17 +109,17 @@ class UserLogin extends StatelessWidget {
                         focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                            BorderRadius.all(Radius.circular(10))),
                         enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                            BorderRadius.all(Radius.circular(10))),
                         hintStyle: GoogleFonts.montserrat(
                           color: Style.primaryColor,
                         ),
                         hintText: "Enter Password",
                         contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
                   ),
                 ),
                 Container(
@@ -110,7 +134,13 @@ class UserLogin extends StatelessWidget {
                         children: <Widget>[
                           TextButton(
                             onPressed: (){
+
                               navigateHome();
+
+                              // print('Input value: $userName');
+                              print('Username:  ' + userNameController.text);
+                              print('Password:  ' + passwordController.text);
+
                             },
                             child: Text("Sign In", style: GoogleFonts.montserrat(
                               color: Colors.white,

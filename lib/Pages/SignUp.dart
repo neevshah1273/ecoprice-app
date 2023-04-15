@@ -4,8 +4,31 @@ import 'package:google_fonts/google_fonts.dart';
 import 'ColorGradient.dart';
 import 'Style.dart';
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
+
+  @override
+  State<SignUp> createState() => _SignUpState();
+}
+
+class _SignUpState extends State<SignUp> {
+
+  final nameController = TextEditingController();
+  final phoneNumberController = TextEditingController();
+  final emailAddressController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    nameController.dispose();
+    phoneNumberController.dispose();
+    emailAddressController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +85,7 @@ class SignUp extends StatelessWidget {
                 horizontal: (MediaQuery.of(context).size.width) / 5,
                 vertical: 7.5),
             child: TextField(
+              controller: nameController,
               decoration: InputDecoration(
                   prefixIcon: const Icon(
                     Icons.person,
@@ -78,7 +102,7 @@ class SignUp extends StatelessWidget {
                   ),
                   hintText: "Name",
                   contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
             ),
           ),
           Padding(
@@ -86,6 +110,7 @@ class SignUp extends StatelessWidget {
                 horizontal: (MediaQuery.of(context).size.width) / 5,
                 vertical: 7.5),
             child: TextField(
+              controller: phoneNumberController,
               decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.phone,
@@ -102,7 +127,7 @@ class SignUp extends StatelessWidget {
                   ),
                   hintText: "Phone Number",
                   contentPadding:
-                      EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                  EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
             ),
           ),
           Padding(
@@ -110,6 +135,7 @@ class SignUp extends StatelessWidget {
                 horizontal: (MediaQuery.of(context).size.width) / 5,
                 vertical: 7.5),
             child: TextField(
+              controller: emailAddressController,
               decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.mail,
@@ -126,7 +152,7 @@ class SignUp extends StatelessWidget {
                   ),
                   hintText: "Email address",
                   contentPadding:
-                      EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                  EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
             ),
           ),
           Padding(
@@ -134,6 +160,7 @@ class SignUp extends StatelessWidget {
                 horizontal: (MediaQuery.of(context).size.width) / 5,
                 vertical: 7.5),
             child: TextField(
+              controller: passwordController,
               decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.lock_open,
@@ -150,7 +177,7 @@ class SignUp extends StatelessWidget {
                   ),
                   hintText: "Password",
                   contentPadding:
-                      EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                  EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
             ),
           ),
           Padding(
@@ -158,6 +185,7 @@ class SignUp extends StatelessWidget {
                 horizontal: (MediaQuery.of(context).size.width) / 5,
                 vertical: 7.5),
             child: TextField(
+              controller: confirmPasswordController,
               decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.lock,
@@ -174,7 +202,7 @@ class SignUp extends StatelessWidget {
                   ),
                   hintText: "Confirm Password",
                   contentPadding:
-                      EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                  EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
             ),
           ),
           const SizedBox(
@@ -193,8 +221,22 @@ class SignUp extends StatelessWidget {
                     TextButton(
                       onPressed: (){
                         navigateHome();
+
+                        print("Name : " + nameController.text);
+                        print("Phone Number : " + phoneNumberController.text);
+                        print("Email Address : " + emailAddressController.text);
+                        print("Password : " + passwordController.text);
+                        print("Confirm Password : " + confirmPasswordController.text);
+
+
+
+
+
+
+
+
                       },
-                      child: Text("Sign In", style: GoogleFonts.montserrat(
+                      child: Text("Sign Up", style: GoogleFonts.montserrat(
                         color: Colors.white,
                         fontSize: 20,
                       ),),
@@ -215,6 +257,7 @@ class SignUp extends StatelessWidget {
                 child: TextButton(
                     onPressed: () {
                       navigatelogin();
+
                     },
                     child: Text(
                       "Already have account ?",

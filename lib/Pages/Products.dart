@@ -227,102 +227,55 @@ class _ProductsState extends State<Products> {
           )
         ],
       ),
-          bottomNavigationBar: Container(
-                  height: 60,
-                  decoration: BoxDecoration(
-                    gradient: ColorGradient.getGradient(),
-                  ),
-                  child: BottomNavigationBar(
-                    backgroundColor: Colors.transparent,
-                    // selectedItemColor: Colors.white,
-                    items: <BottomNavigationBarItem>[
-                      BottomNavigationBarItem(
-                        icon: Icon(
-                          Icons.home,
-                          color: buttonSelected == 1 ? Colors.white : Colors.black,
-                        ),
-                        label: 'Home',
-                          backgroundColor: Colors.transparent
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(
-                          Icons.discount,
-                          color: buttonSelected == 2 ? Colors.white : Colors.black,
-                        ),
-                        label: 'Deals',
-                        // backgroundColor: Colors.white,
-                          backgroundColor: Colors.transparent
-                      ),
-                      BottomNavigationBarItem(icon: Icon(
-                        Icons.qr_code_scanner,
-                        color: buttonSelected == 3 ? Colors.white : Colors.black,
-                      ),
-                        label: "QR Code"
-                          ,backgroundColor: Colors.transparent
-                      ),
-                      BottomNavigationBarItem(icon: Icon(
-                        Icons.shopping_cart,
-                        color: buttonSelected == 4 ? Colors.white : Colors.black,
-                      ),
-                          label: "Chart",
-                          backgroundColor: Colors.transparent)
 
-                    ],
-                      currentIndex: _selectedIndex,
-
-                      selectedLabelStyle: GoogleFonts.montserrat(
-                        fontSize: 15,
-                      ),
-
-                      onTap: _onItemTapped,
-                  ),
-
-                  // child: BottomNavigationBar(
-                  //   // backgroundColor: Theme.of(context).primaryColor,
-                  //
-                  //   type: BottomNavigationBarType.shifting,
-                  //   selectedItemColor: Colors.white,
-                  //
-                  //   items: <BottomNavigationBarItem>[
-                  //     BottomNavigationBarItem(
-                  //       icon: Icon(
-                  //         Icons.home,
-                  //         color: buttonSelected == 1 ? Colors.white : Colors.black,
-                  //       ),
-                  //       label: 'Home',
-                  //
-                  //       // backgroundColor: Theme.of(context).primaryColor
-                  //     ),
-                  //     BottomNavigationBarItem(
-                  //       icon: Icon(
-                  //         Icons.discount,
-                  //         color: buttonSelected == 2 ? Colors.white : Colors.black,
-                  //       ),
-                  //       label: 'Deals',
-                  //     ),
-                  //     BottomNavigationBarItem(
-                  //       icon: Icon(
-                  //         Icons.qr_code_scanner,
-                  //         color: buttonSelected == 3 ? Colors.white : Colors.black,
-                  //       ),
-                  //       label: 'Scan QR',
-                  //     ),
-                  //     BottomNavigationBarItem(
-                  //       icon: Icon(Icons.person,
-                  //           color: buttonSelected == 4 ? Colors.white : Colors.black),
-                  //       label: 'My Profile',
-                  //     ),
-                  //   ],
-                  //   currentIndex: _selectedIndex,
-                  //
-                  //   selectedLabelStyle: GoogleFonts.montserrat(
-                  //     fontSize: 15,
-                  //     color: Colors.white,
-                  //   ),
-                  //
-                  //   onTap: _onItemTapped,
-                  // ),
+      bottomNavigationBar: Container(
+        height: 60,
+        decoration: BoxDecoration(
+          gradient: ColorGradient.getGradient(),
+        ),
+        child: BottomNavigationBar(
+          backgroundColor: Colors.transparent,
+          // selectedItemColor: Colors.white,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: buttonSelected == 1 ? Colors.white : Colors.black,
                 ),
+                label: 'Home',
+                backgroundColor: Colors.transparent),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.discount,
+                  color: buttonSelected == 2 ? Colors.white : Colors.black,
+                ),
+                label: 'Deals',
+                // backgroundColor: Colors.white,
+                backgroundColor: Colors.transparent),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.qr_code_scanner,
+                  color: buttonSelected == 3 ? Colors.white : Colors.black,
+                ),
+                label: "QR Code",
+                backgroundColor: Colors.transparent),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: buttonSelected == 4 ? Colors.white : Colors.black,
+                ),
+                label: "Chart",
+                backgroundColor: Colors.transparent)
+          ],
+          currentIndex: _selectedIndex,
+
+          selectedLabelStyle: GoogleFonts.montserrat(
+            fontSize: 15,
+          ),
+          onTap: _onItemTapped,
+        ),
+      ),
+
     ));
   }
 }
