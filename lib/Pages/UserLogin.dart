@@ -1,9 +1,11 @@
+import 'package:ecoprice/Pages/SignUp.dart';
 import 'package:ecoprice/Pages/Style.dart';
 import 'package:ecoprice/services/authService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/user.dart';
 import 'ColorGradient.dart';
+import 'Products.dart';
 import 'Style.dart';
 
 class UserLogin extends StatefulWidget {
@@ -38,11 +40,20 @@ class _UserLoginState extends State<UserLogin> {
   Widget build(BuildContext context) {
 
     void navigateSignup(){
-      Navigator.pushNamedAndRemoveUntil(context, '/signup', (route) => false);
-
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => SignUp()),
+              (route) => false
+      );
     }
+
+
     void navigateHome(){
-      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Products(user)),
+              (route) => false
+      );
     }
 
     void logIn() async {

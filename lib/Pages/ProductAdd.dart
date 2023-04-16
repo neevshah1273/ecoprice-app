@@ -1,18 +1,27 @@
+import 'dart:convert';
+import 'dart:ffi';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:ecoprice/models/product.dart';
+import 'package:ecoprice/models/user.dart';
 import 'package:ecoprice/services/productService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'Style.dart';
 import 'ColorGradient.dart';
 
 class ProductAdd extends StatefulWidget {
-  const ProductAdd({Key? key}) : super(key: key);
+  User? user;
+  ProductAdd(this.user, {Key? key}) : super(key: key);
 
   @override
   State<ProductAdd> createState() => _ProductState();
 }
 
 class _ProductState extends State<ProductAdd> {
+
+
   
   final productNameController = TextEditingController();
   final currentPriceController = TextEditingController();
@@ -20,14 +29,54 @@ class _ProductState extends State<ProductAdd> {
   final expirationDaysLeftController = TextEditingController();
 
 
-  void create() async{
-//    Product product = Product(id: '', title: productNameController.text, category: category, image: image, dueDate: dueDate, quantity: quantity, currentPrice: currentPrice, originalPrice: originalPrice, dailyConsume: dailyConsume)
+  void create(String? ss) async{
+
+    Product product = Product(
+        id: '',
+        title: productNameController.text,
+        category: 'category',
+        image: ss ?? '',
+        dueDate: double.parse(expirationDaysLeftController.text),
+        quantity: 50,
+        currentPrice:  double.parse(currentPriceController.text),
+        originalPrice: double.parse(originalPriceController.text),
+        dailyConsume: double.parse('source'));
+
+    print(productNameController.text);
+    print(currentPriceController.text);
+    print(originalPriceController.text);
+    print(expirationDaysLeftController.text);
+
 //    Product createdProduct = await createProduct(product);
   }
 
 
   @override
   Widget build(BuildContext context) {
+    User? user = widget.user;
+
+
+    Future<String?> pickImageAndEncodeBase64() async {
+      final imagePicker = ImagePicker();
+      final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
+      if (pickedFile == null) {
+        return null;
+      }
+
+      //convert Path to File
+      Uint8List imagebytes = await pickedFile.readAsBytes(); //convert to bytes
+      String base64string = base64.encode(imagebytes); //convert bytes to base64 string
+      print(base64string);
+
+      return base64string;
+    }
+
+    String? ss;
+    void imageHandle() async {
+       ss = await pickImageAndEncodeBase64();
+      print(ss);
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -207,7 +256,9 @@ class _ProductState extends State<ProductAdd> {
                         SizedBox(width: 5,),
                         Icon(Icons.cloud_upload, color: Colors.white,),
                         TextButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            imageHandle();
+                          },
                           child: Text("Upload Image", style: GoogleFonts.montserrat(
                             color: Colors.white,
                             fontSize: 20,
@@ -266,10 +317,8 @@ class _ProductState extends State<ProductAdd> {
                               TextButton(
                                 onPressed: (){
                                   
-                                  print(productNameController.text);
-                                  print(currentPriceController.text);
-                                  print(originalPriceController.text);
-                                  print(expirationDaysLeftController.text);
+                                  create(ss);
+
                                   
                                   
                                 },
@@ -284,7 +333,7 @@ class _ProductState extends State<ProductAdd> {
                           )
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Container(
@@ -299,7 +348,9 @@ class _ProductState extends State<ProductAdd> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               TextButton(
-                                onPressed: (){},
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                },
                                 child: Text("Cancel", style: GoogleFonts.montserrat(
                                   color: Colors.white,
                                   fontSize: 20,
