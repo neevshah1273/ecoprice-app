@@ -1,10 +1,12 @@
 import 'package:ecoprice/Pages/Cart.dart';
 import 'package:ecoprice/Pages/ProductAdd.dart';
 import 'package:ecoprice/Pages/Style.dart';
+import 'package:ecoprice/Pages/WelcomePage.dart';
 import 'package:ecoprice/services/productService.dart';
 import 'package:ecoprice/widgets/productGridViewWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:searchfield/searchfield.dart';
 import '../models/product.dart';
 import '../models/user.dart';
 import 'FilterProductDialog.dart';
@@ -129,6 +131,7 @@ class _ProductsState extends State<Products> {
 
 
     return SafeArea(
+
         child: Scaffold(
           appBar: AppBar(
             flexibleSpace: Container(
@@ -138,7 +141,7 @@ class _ProductsState extends State<Products> {
 
           ),
         ),
-        backgroundColor: Style.primaryColor,
+            backgroundColor: Style.primaryColor,
             title: Text(
           "Products",
           style: GoogleFonts.montserrat(
@@ -146,7 +149,7 @@ class _ProductsState extends State<Products> {
             fontSize: 25,
           ),
         ),
-        centerTitle: true,
+            centerTitle: true,
             actions: <Widget>[
 
               (user?.isAdminstritiveUser ?? false)? IconButton(
@@ -161,28 +164,59 @@ class _ProductsState extends State<Products> {
             ],
       ),
             body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 10,
-          ),
-              ListTile(
-              title: TextField(
-                decoration: InputDecoration(
-                    hintText: "Search",
-                    hintStyle: GoogleFonts.montserrat(
-                      fontSize: 20,
+                children: <Widget>[
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 70,
+                    width: 300,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              blurRadius: 10,
+                              offset: Offset(0,10)
+                          )
+                        ]
                     ),
-                    prefixIcon: const Icon(
-                      Icons.search,
-                      color: Style.iconColor,
-                      size: 30,
+                    child: SearchField<Product>(
+                      hint: 'Search',
+                      searchInputDecoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(
+                              color: Colors.blueGrey.shade200,
+                              width: 1
+                          ),
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(
+                              color: Colors.blue.withOpacity(0.8),
+                              width: 2
+                          ),
+                              borderRadius: BorderRadius.circular(10)
+                          )
+                      ),
+                      itemHeight: 50,
+                      maxSuggestionsInViewPort: 8,
+                      suggestionsDecoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      suggestions:
+                      products.map((e) => SearchFieldListItem<Product>(e.title?? '',item: e)).toList(),
+                      onSuggestionTap: (value) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => WelcomePage()),
+                        );
+                      },
                     ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
-              ),
-    ),
-              Container(
+                  ),
+
+
+                  Container(
             margin: EdgeInsets.only(top: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -271,59 +305,57 @@ class _ProductsState extends State<Products> {
                     }),
             ),
 
-      ]
-    ),
-
-
-      bottomNavigationBar: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          gradient: ColorGradient.getGradient(),
+            ]
         ),
-        child: BottomNavigationBar(
-          backgroundColor: Colors.transparent,
-          // selectedItemColor: Colors.white,
-          onTap: _onItemTapped,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  color: buttonSelected == 1 ? Colors.white : Colors.black,
-                ),
-                label: 'Home',
-                backgroundColor: Colors.transparent),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.discount,
-                  color: buttonSelected == 2 ? Colors.white : Colors.black,
-                ),
-                label: 'Deals',
-                // backgroundColor: Colors.white,
-                backgroundColor: Colors.transparent),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.qr_code_scanner,
-                  color: buttonSelected == 3 ? Colors.white : Colors.black,
-                ),
-                label: "QR Code",
-                backgroundColor: Colors.transparent),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.shopping_cart,
-                  color: buttonSelected == 4 ? Colors.white : Colors.black,
-                ),
-                label: "Chart",
-                backgroundColor: Colors.transparent)
-          ],
-          currentIndex: _selectedIndex,
+            bottomNavigationBar: Container(
+            height: 60,
+            decoration: BoxDecoration(
+              gradient: ColorGradient.getGradient(),
+            ),
+            child: BottomNavigationBar(
+              backgroundColor: Colors.transparent,
+              // selectedItemColor: Colors.white,
+              onTap: _onItemTapped,
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.home,
+                      color: buttonSelected == 1 ? Colors.white : Colors.black,
+                    ),
+                    label: 'Home',
+                    backgroundColor: Colors.transparent),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.discount,
+                      color: buttonSelected == 2 ? Colors.white : Colors.black,
+                    ),
+                    label: 'Deals',
+                    // backgroundColor: Colors.white,
+                    backgroundColor: Colors.transparent),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.qr_code_scanner,
+                      color: buttonSelected == 3 ? Colors.white : Colors.black,
+                    ),
+                    label: "QR Code",
+                    backgroundColor: Colors.transparent),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.shopping_cart,
+                      color: buttonSelected == 4 ? Colors.white : Colors.black,
+                    ),
+                    label: "Chart",
+                    backgroundColor: Colors.transparent)
+              ],
+              currentIndex: _selectedIndex,
 
-          selectedLabelStyle: GoogleFonts.montserrat(
-            fontSize: 15,
+              selectedLabelStyle: GoogleFonts.montserrat(
+                fontSize: 15,
 
-          ),
-          )
+              ),
+            )
+        ),
         )
-      )
     );
   }
 }
