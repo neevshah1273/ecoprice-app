@@ -1,5 +1,7 @@
 import 'package:ecoprice/Pages/AdminLogin.dart';
 import 'package:ecoprice/Pages/Cart.dart';
+import 'package:ecoprice/Pages/ItemCounter.dart';
+import 'package:ecoprice/Pages/Product.dart';
 import 'package:ecoprice/Pages/Products.dart';
 import 'package:ecoprice/Pages/SignUp.dart';
 import 'package:ecoprice/Pages/UserLogin.dart';
@@ -10,6 +12,8 @@ import 'Pages/ProductEdit.dart';
 import 'Pages/ProductAdd.dart';
 import 'Pages/CheckOut.dart';
 import 'Pages/AdminProduct.dart';
+import 'Pages/ProductPage.dart';
+import 'Pages/ItemCounter.dart';
 import 'Pages/DealProducts.dart';
 // import 'Pages/UserLogin.dart';
 

@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:searchfield/searchfield.dart';
 import '../models/product.dart';
 import '../models/user.dart';
+import 'ItemCounter.dart';
 import 'FilterProductDialog.dart';
 import 'Product.dart';
 import 'ColorGradient.dart';
@@ -288,21 +289,19 @@ class _ProductsState extends State<Products> {
               ],
             ),
           ),
-
-
-
-
+                  SizedBox(height: 10,),
                   Expanded(
-                  child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 2.5,
-                      crossAxisSpacing: 2.5),
-
-                    itemCount: products.length,
-                    itemBuilder: (context, index) {
-                      return ProductGridViewWidget(products[index]);
-                    }),
+                      child: GridView.builder(
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 1,
+                        mainAxisSpacing: 2.5,
+                        childAspectRatio: 2,
+                        // crossAxisSpacing: 2.5
+                      ),
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        return ProductGridViewWidget(products[index]);
+                      }),
             ),
 
             ]

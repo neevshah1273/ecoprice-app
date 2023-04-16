@@ -39,7 +39,7 @@ class _ProductState extends State<ProductEdit> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          height: 0.7 * MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
               color: Color(0xffFEFFF8),
               borderRadius: BorderRadius.circular(10.0),
@@ -309,6 +309,45 @@ class _ProductState extends State<ProductEdit> {
                       hintText: "Days left",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(bottom: 5),
+                  padding: EdgeInsetsDirectional.fromSTEB(
+                      MediaQuery.of(context).size.width / 10,
+                      0,
+                      MediaQuery.of(context).size.width / 10,
+                      0),
+                  // padding: EdgeInsetsDirectional.symmetric(
+                  //     horizontal: MediaQuery.of(context).size.width / 10),
+                  alignment: Alignment.centerLeft,
+                  child: Text("Quantity ",
+                      style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      ))),
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                padding: EdgeInsetsDirectional.fromSTEB(
+                    MediaQuery.of(context).size.width / 10,
+                    0,
+                    MediaQuery.of(context).size.width / 10,
+                    0),
+                // padding: EdgeInsetsDirectional.symmetric(
+                //     horizontal: MediaQuery.of(context).size.width / 10),
+                child: TextField(
+                  controller: expirationDaysLeftController,
+                  decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      hintStyle: GoogleFonts.montserrat(),
+                      hintText: "Quantity",
+                      contentPadding:
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
                 ),
               ),
             ],

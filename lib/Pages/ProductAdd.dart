@@ -97,8 +97,8 @@ class _ProductState extends State<ProductAdd> {
         child: Container(
           decoration: BoxDecoration(
               color: Color(0xffFEFFF8),
-              borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(color: Colors.black, width: 2.0)),
+              borderRadius: BorderRadius.circular(10.0),),
+              // border: Border.all(color: Colors.black, width: 2.0)),
           child: Column(
             children: <Widget>[
               SizedBox(
@@ -241,6 +241,76 @@ class _ProductState extends State<ProductAdd> {
                       hintText: "Days left",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width / 10, bottom: 5),
+                  // padding: EdgeInsetsDirectional.symmetric(
+                  //     horizontal: MediaQuery.of(context).size.width / 10),
+                  alignment: Alignment.centerLeft,
+                  child: Text("Quantity ",
+                      style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      ))),
+              Container(
+                margin: EdgeInsets.only(bottom: 20),
+                padding: EdgeInsetsDirectional.fromSTEB(
+                    MediaQuery.of(context).size.width / 10,
+                    0,
+                    MediaQuery.of(context).size.width / 10,
+                    0),
+                // padding: EdgeInsetsDirectional.symmetric(
+                //     horizontal: MediaQuery.of(context).size.width / 10),
+                child: TextField(
+                  controller: expirationDaysLeftController,
+                  decoration: InputDecoration(
+                      focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      hintStyle: GoogleFonts.montserrat(),
+                      hintText: "Quantity",
+                      contentPadding:
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width / 10, bottom: 5),
+                  // padding: EdgeInsetsDirectional.symmetric(
+                  //     horizontal: MediaQuery.of(context).size.width / 10),
+                  alignment: Alignment.centerLeft,
+                  child: Text("Mean Daily Consumption ",
+                      style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      ))),
+              Container(
+                margin: EdgeInsets.only(bottom: 20),
+                padding: EdgeInsetsDirectional.fromSTEB(
+                    MediaQuery.of(context).size.width / 10,
+                    0,
+                    MediaQuery.of(context).size.width / 10,
+                    0),
+                // padding: EdgeInsetsDirectional.symmetric(
+                //     horizontal: MediaQuery.of(context).size.width / 10),
+                child: TextField(
+                  controller: expirationDaysLeftController,
+                  decoration: InputDecoration(
+                      focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      hintStyle: GoogleFonts.montserrat(),
+                      hintText: "Mean Daily Consumption",
+                      contentPadding:
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
                 ),
               ),
               Container(
