@@ -19,8 +19,6 @@ class ProductAdd extends StatefulWidget {
 
 class _ProductState extends State<ProductAdd> {
 
-
-  
   final productNameController = TextEditingController();
   final currentPriceController = TextEditingController();
   final originalPriceController = TextEditingController();
@@ -29,10 +27,10 @@ class _ProductState extends State<ProductAdd> {
   final categoryController = TextEditingController();
   final dailyconsumeController = TextEditingController();
 
-
   void create(String? ss) async{
 
     Product product = Product(
+
         title: productNameController.text,
         category: categoryController.text,
         image: ss ?? '',
@@ -42,6 +40,7 @@ class _ProductState extends State<ProductAdd> {
         originalPrice: double.parse(originalPriceController.text),
         dailyConsume: double.parse(dailyconsumeController.text)
 
+
     );
 
    print(product.toJson().toString());
@@ -50,7 +49,6 @@ class _ProductState extends State<ProductAdd> {
     print(createdProduct?.toJson().toString());
     Navigator.pop(context);
   }
-
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ecoprice.ecoprice">
+
+    <uses-permission-sdk-23 android:name="android.permission.CAMERA"/>
+
    <application
         android:label="ecoprice"
         android:name="${applicationName}"

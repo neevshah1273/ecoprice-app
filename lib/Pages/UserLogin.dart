@@ -21,7 +21,9 @@ class _UserLoginState extends State<UserLogin> {
 
   @override
   void initState(){
-
+    //TODO: Remove pre-populated username & password
+    userNameController.text = "u01@gmail.com";
+    passwordController.text = "12345678";
   }
 
   final userNameController = TextEditingController();
@@ -51,7 +53,7 @@ class _UserLoginState extends State<UserLogin> {
     void navigateHome(){
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => Products(user)),
+          MaterialPageRoute(builder: (context) => Products(user!)),
               (route) => false
       );
     }

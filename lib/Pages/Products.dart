@@ -1,5 +1,8 @@
+import 'package:camera/camera.dart';
 import 'package:ecoprice/Pages/Cart.dart';
+import 'package:ecoprice/Pages/DealProducts.dart';
 import 'package:ecoprice/Pages/ProductAdd.dart';
+import 'package:ecoprice/Pages/QRCodeScanner.dart';
 import 'package:ecoprice/Pages/Style.dart';
 import 'package:ecoprice/Pages/WelcomePage.dart';
 import 'package:ecoprice/services/productService.dart';
@@ -12,7 +15,7 @@ import '../models/user.dart';
 import 'ColorGradient.dart';
 
 class Products extends StatefulWidget {
-  User? user;
+  User user;
   Products(this.user, {Key? key}) : super(key: key);
 
   @override
@@ -26,6 +29,7 @@ class _ProductsState extends State<Products> {
 
   int _selectedIndex = 0;
   int buttonSelected = 1;
+
 
   List<Product> products = [];
   List<Product> selectedProducts = [];
@@ -48,6 +52,7 @@ class _ProductsState extends State<Products> {
   }
 
 
+
   @override
   void initState () {
     super.initState();
@@ -57,6 +62,7 @@ class _ProductsState extends State<Products> {
   print(products);
   //print(user)
   }
+
 
   _getAllproducts() async {
 
@@ -80,16 +86,11 @@ class _ProductsState extends State<Products> {
     print(selectedCategory);
   }
 
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
     //print(Theme.of(context).primaryColor);
 
-    User? user = widget.user;
+    User user = widget.user;
 
     void navigateHome(){
       Navigator.pushAndRemoveUntil(
@@ -104,15 +105,21 @@ class _ProductsState extends State<Products> {
       //TODO:: Dealsss
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => Products(user)),
+          MaterialPageRoute(builder: (context) => DealProducts(user)),
               (route) => false
       );
     }
 
-    void navigateQRCode(){
+    void navigateQRCode() async {
       //TODO::: QRRRRRR
-      Navigator.pushNamedAndRemoveUntil(context, '/qr_scanner', (route) => false);
+      WidgetsFlutterBinding.ensureInitialized();
 
+      // Obtain a list of the available cameras on the device.
+      final cameras = await availableCameras();
+
+      // Get a specific camera from the list of available cameras.
+      final firstCamera = cameras.first;
+      Navigator.push(context, MaterialPageRoute(builder: (context) => TakePictureScreen(camera: firstCamera)));
     }
 
     void navigateCart(){
@@ -247,6 +254,81 @@ class _ProductsState extends State<Products> {
                       },
                     ),
                   ),
+
+
+          //         Container(
+          //   margin: EdgeInsets.only(top: 10),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children : [
+          //       Container(
+          //         margin: EdgeInsets.only(right: 10),
+          //         height: 50,
+          //         width: 0.2 * MediaQuery.of(context).size.width,
+          //         decoration: BoxDecoration(
+          //           color: Color(0xff9acd32),
+          //           border: Border.all(color: Colors.black),
+          //           borderRadius: BorderRadius.circular(10),
+          //         ),
+          //         child: TextButton(onPressed: (){}, child:
+          //         Text("All", style: GoogleFonts.montserrat(
+          //           fontSize: 17.5,
+          //           fontWeight: FontWeight.w500,
+          //           color: Colors.black,
+          //         ))),
+          //       ),
+          //       Container(
+          //         margin: EdgeInsets.only(right: 10),
+          //         height: 50,
+          //         width: 0.2 * MediaQuery.of(context).size.width,
+          //         decoration: BoxDecoration(
+          //           color: Colors.transparent,
+          //           border: Border.all(color: Colors.black),
+          //           borderRadius: BorderRadius.circular(10),
+          //         ),
+          //         child: TextButton(onPressed: (){}, child:
+          //         Text("Fruits", style: GoogleFonts.montserrat(
+          //           fontSize: 17.5,
+          //           fontWeight: FontWeight.w500,
+          //           color: Colors.black,
+          //         ))),
+          //       ),
+          //       Container(
+          //         margin: EdgeInsets.only(right: 10),
+          //         height: 50,
+          //         width: 0.25 * MediaQuery.of(context).size.width,
+          //         decoration: BoxDecoration(
+          //           color: Colors.transparent,
+          //           border: Border.all(color: Colors.black),
+          //           borderRadius: BorderRadius.circular(10),
+          //         ),
+          //         child: TextButton(onPressed: (){}, child:
+          //         Text("Veggies", style: GoogleFonts.montserrat(
+          //           fontSize: 17.5,
+          //           fontWeight: FontWeight.w500,
+          //           color: Colors.black,
+          //         ))),
+          //       ),
+          //       Container(
+          //         margin: EdgeInsets.only(right: 10),
+          //         height: 50,
+          //         width: 0.2 * MediaQuery.of(context).size.width,
+          //         decoration: BoxDecoration(
+          //           color: Colors.transparent,
+          //           border: Border.all(color: Colors.black),
+          //           borderRadius: BorderRadius.circular(10),
+          //         ),
+          //         child: TextButton(onPressed: (){}, child:
+          //         Text("Dairy", style: GoogleFonts.montserrat(
+          //           fontSize: 17.5,
+          //           fontWeight: FontWeight.w500,
+          //           color: Colors.black,
+          //         ))),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+
                   Container(
                       height: 75,
                       margin: EdgeInsets.only(left: 10),
@@ -257,7 +339,9 @@ class _ProductsState extends State<Products> {
                               return InkWell(
                                   onTap: (){
                                     onCategorySelection(category);
+
                                     print(selectedCategory);
+
                                   },
                                   child: box(category, selectedCategory == category ? Color(0xff4b8c24) : Colors.white));
                             }).toList(),
@@ -265,22 +349,35 @@ class _ProductsState extends State<Products> {
                       )
                   ),
                   SizedBox(height: 10,),
-                  Expanded(
-                      child: GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 1,
-                        // mainAxisSpacing: 2.5,
-                        childAspectRatio: 2,
-                        // crossAxisSpacing: 2.5
-                      ),
-                      itemCount: selectedProducts.length,
-                      itemBuilder: (context, index) {
-                        return ProductGridViewWidget(selectedProducts[index]);
-                      }),
-            ),
 
-            ]
-        ),
+                  Expanded(
+                    child: ListView.builder(
+                        padding: const EdgeInsets.all(8),
+                        itemCount: selectedProducts.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ProductGridViewWidget(selectedProducts[index], user?.isAdminstritiveUser ?? false);
+                        }
+                    ),
+                  ),
+
+
+            //       Expanded(
+            //           child: GridView.builder(
+            //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //             crossAxisCount: 1,
+            //             // mainAxisSpacing: 2.5,
+            //             childAspectRatio: 2,
+            //             // crossAxisSpacing: 2.5
+            //           ),
+            //           itemCount: products.length,
+            //           itemBuilder: (context, index) {
+            //             return ProductGridViewWidget(products[index]);
+            //           }),
+            // ),
+
+
+        ]
+            ),
             bottomNavigationBar: Container(
             height: 60,
             decoration: BoxDecoration(
