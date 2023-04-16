@@ -20,10 +20,32 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
+
+  List<String> Categories = ["All","Fruits", "Veggies", "Dairy", "Bakery", "Eggs", "Pasta", "Cereals", "Sauces", "Drinks"];
+  String selectedCategory = "All";
+
   int _selectedIndex = 0;
   int buttonSelected = 1;
 
   List<Product> products = [];
+  List<Product> selectedProducts = [];
+
+  void onCategorySelection(String selection){
+    setState(() {
+      selectedCategory = selection;
+      if(selectedCategory=="All"){
+        selectedProducts = products;
+      }
+      else{
+        selectedProducts = [];
+        products.forEach((element) {
+          if(element.category==selectedCategory){
+            selectedProducts.add(element);
+          }
+        });
+      }
+    });
+  }
 
 
   @override
@@ -42,7 +64,20 @@ class _ProductsState extends State<Products> {
 
     setState(()  {
       products = prod;
+      if(selectedCategory=="All"){
+        selectedProducts = prod;
+      }
+      else{
+        selectedProducts = [];
+        prod.forEach((element) {
+          if(element.category==selectedCategory){
+            selectedProducts.add(element);
+          }
+        });
+      }
     });
+    print(selectedProducts);
+    print(selectedCategory);
   }
 
 
@@ -212,80 +247,23 @@ class _ProductsState extends State<Products> {
                       },
                     ),
                   ),
-
-
                   Container(
-            margin: EdgeInsets.only(top: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children : [
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  height: 50,
-                  width: 0.2 * MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Color(0xff9acd32),
-                    border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(10),
+                      height: 75,
+                      margin: EdgeInsets.only(left: 10),
+                      child:SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child:Row(
+                            children: Categories.map((category){
+                              return InkWell(
+                                  onTap: (){
+                                    onCategorySelection(category);
+                                    print(selectedCategory);
+                                  },
+                                  child: box(category, selectedCategory == category ? Color(0xff4b8c24) : Colors.white));
+                            }).toList(),
+                          )
+                      )
                   ),
-                  child: TextButton(onPressed: (){}, child:
-                  Text("All", style: GoogleFonts.montserrat(
-                    fontSize: 17.5,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ))),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  height: 50,
-                  width: 0.2 * MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextButton(onPressed: (){}, child:
-                  Text("Fruits", style: GoogleFonts.montserrat(
-                    fontSize: 17.5,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ))),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  height: 50,
-                  width: 0.25 * MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextButton(onPressed: (){}, child:
-                  Text("Veggies", style: GoogleFonts.montserrat(
-                    fontSize: 17.5,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ))),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  height: 50,
-                  width: 0.2 * MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextButton(onPressed: (){}, child:
-                  Text("Dairy", style: GoogleFonts.montserrat(
-                    fontSize: 17.5,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ))),
-                ),
-              ],
-            ),
-          ),
                   SizedBox(height: 10,),
                   Expanded(
                       child: GridView.builder(
@@ -295,9 +273,9 @@ class _ProductsState extends State<Products> {
                         childAspectRatio: 2,
                         // crossAxisSpacing: 2.5
                       ),
-                      itemCount: products.length,
+                      itemCount: selectedProducts.length,
                       itemBuilder: (context, index) {
-                        return ProductGridViewWidget(products[index]);
+                        return ProductGridViewWidget(selectedProducts[index]);
                       }),
             ),
 
@@ -354,4 +332,24 @@ class _ProductsState extends State<Products> {
         )
     );
   }
+}
+
+Widget box(String title, Color backgroundcolor){
+
+  return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        borderRadius: BorderRadius.circular(10),
+        color: backgroundcolor,
+        // color: Color(0xff63a91f),
+      ),
+      margin: EdgeInsets.only(top: 5, right: 10, bottom: 5),
+      width: 100,
+      alignment: Alignment.center,
+      child: Text(title, style: GoogleFonts.montserrat(
+        fontSize: 20,
+        fontWeight: FontWeight.w400,
+      ))
+  );
 }

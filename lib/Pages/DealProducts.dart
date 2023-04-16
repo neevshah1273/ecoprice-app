@@ -23,7 +23,9 @@ class _DealProductsState extends State<DealProducts> {
   int _selectedIndex = 0;
   int buttonSelected = 1;
 
+
   List<Product> products = [];
+  List<Product> selectedProducts = [];
 
   // String selectedCategory = "All";
 
@@ -39,6 +41,17 @@ class _DealProductsState extends State<DealProducts> {
   void onCategorySelection(String selection){
     setState(() {
       selectedCategory = selection;
+      if(selectedCategory=="All"){
+        selectedProducts = products;
+      }
+      else{
+        selectedProducts = [];
+        products.forEach((element) {
+          if(element.category==selectedCategory){
+            selectedProducts.add(element);
+          }
+        });
+      }
     });
   }
 
@@ -47,7 +60,23 @@ class _DealProductsState extends State<DealProducts> {
     List<Product> prod = await fetchAllProducts();
 
     setState(()  {
-      products = prod;
+      products = [];
+      prod.forEach((element) {
+        if(element.originalPrice==element.currentPrice){
+          products.add(element);
+        }
+      });
+      if(selectedCategory=="All"){
+        selectedProducts = prod;
+      }
+      else{
+        selectedProducts = [];
+        prod.forEach((element) {
+          if(element.category==selectedCategory){
+            selectedProducts.add(element);
+          }
+        });
+      }
     });
   }
 
