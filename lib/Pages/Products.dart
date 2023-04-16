@@ -9,9 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:searchfield/searchfield.dart';
 import '../models/product.dart';
 import '../models/user.dart';
-import 'ItemCounter.dart';
-import 'FilterProductDialog.dart';
-import 'Product.dart';
 import 'ColorGradient.dart';
 
 class Products extends StatefulWidget {

@@ -1,13 +1,11 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:ecoprice/models/product.dart';
 import 'package:ecoprice/models/user.dart';
-import 'package:ecoprice/services/productService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import '../services/productService.dart';
 import 'Style.dart';
 import 'ColorGradient.dart';
 
@@ -27,27 +25,30 @@ class _ProductState extends State<ProductAdd> {
   final currentPriceController = TextEditingController();
   final originalPriceController = TextEditingController();
   final expirationDaysLeftController = TextEditingController();
+  final quantityController = TextEditingController();
+  final categoryController = TextEditingController();
+  final dailyconsumeController = TextEditingController();
 
 
   void create(String? ss) async{
 
     Product product = Product(
-        id: '',
         title: productNameController.text,
-        category: 'category',
+        category: categoryController.text,
         image: ss ?? '',
         dueDate: double.parse(expirationDaysLeftController.text),
-        quantity: 50,
+        quantity: int.parse(quantityController.text),
         currentPrice:  double.parse(currentPriceController.text),
         originalPrice: double.parse(originalPriceController.text),
-        dailyConsume: double.parse('source'));
+        dailyConsume: double.parse(dailyconsumeController.text)
 
-    print(productNameController.text);
-    print(currentPriceController.text);
-    print(originalPriceController.text);
-    print(expirationDaysLeftController.text);
+    );
 
-//    Product createdProduct = await createProduct(product);
+   print(product.toJson().toString());
+
+    Product? createdProduct = await createProduct(product);
+    print(createdProduct?.toJson().toString());
+    Navigator.pop(context);
   }
 
 
@@ -136,6 +137,40 @@ class _ProductState extends State<ProductAdd> {
                       hintText: "Product Name",
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width / 10, bottom: 5),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Category",
+                  style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width / 10,
+                    right: MediaQuery.of(context).size.width / 10),
+                // padding: EdgeInsetsDirectional.symmetric(
+                //     horizontal: MediaQuery.of(context).size.width / 10),
+                child: TextField(
+                  controller: categoryController,
+                  decoration: InputDecoration(
+                      focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      hintStyle: GoogleFonts.montserrat(),
+                      hintText: "Product category",
+                      contentPadding:
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
                 ),
               ),
               Container(
@@ -264,7 +299,7 @@ class _ProductState extends State<ProductAdd> {
                 // padding: EdgeInsetsDirectional.symmetric(
                 //     horizontal: MediaQuery.of(context).size.width / 10),
                 child: TextField(
-                  controller: expirationDaysLeftController,
+                  controller: quantityController,
                   decoration: InputDecoration(
                       focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black),
@@ -299,7 +334,7 @@ class _ProductState extends State<ProductAdd> {
                 // padding: EdgeInsetsDirectional.symmetric(
                 //     horizontal: MediaQuery.of(context).size.width / 10),
                 child: TextField(
-                  controller: expirationDaysLeftController,
+                  controller: dailyconsumeController,
                   decoration: InputDecoration(
                       focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black),
