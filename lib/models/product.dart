@@ -8,7 +8,7 @@ class Product{
 
 
   Product({
-    required this.id,
+    this.id,
     required this.title,
     required this.category,
     required this.image,

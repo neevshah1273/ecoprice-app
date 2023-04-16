@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 import '../api/serverURL.dart';
 
 
-Future<Product> createProduct(Product product)async {
+Future<Product?> createProduct(Product product)async {
 
 
 
@@ -16,12 +16,25 @@ Future<Product> createProduct(Product product)async {
     Response response = await http.post(
         Uri.parse(ServerURL().url + '/product/create'),
         body: {
-          'product' : jsonEncode(product)
+          'title' : product.title,
+          'dueDate' : product.dueDate.toString(),
+          'dailyConsume' : product.dailyConsume.toString(),
+          'originalPrice' : product.originalPrice.toString(),
+          'currentPrice' : product.currentPrice.toString(),
+          'quantity' : product.quantity.toString(),
+          'image' : product.image,
+          'category' : product.category
         }
     );
 
-    return Product.fromJson(jsonDecode(response.body)['result']);
+    print(response.body);
+    if(response.statusCode!=200)return null;
 
+
+
+    Product resproduct =  Product.fromJson(jsonDecode(response.body)['result']);
+
+    return resproduct;
   
 
 }
