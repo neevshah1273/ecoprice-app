@@ -52,7 +52,7 @@ class _SignUpState extends State<SignUp> {
     void navigateHome(){
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => Products(user)),
+          MaterialPageRoute(builder: (context) => Products(user!)),
               (route) => false
       );
     }

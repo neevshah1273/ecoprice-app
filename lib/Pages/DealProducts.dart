@@ -1,4 +1,5 @@
 import 'package:ecoprice/Pages/Style.dart';
+import 'package:ecoprice/models/user.dart';
 import 'package:ecoprice/services/productService.dart';
 import 'package:ecoprice/widgets/productGridViewWidget.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,8 @@ import 'Product.dart';
 import 'ColorGradient.dart';
 
 class DealProducts extends StatefulWidget {
-  const DealProducts({Key? key}) : super(key: key);
+  User user;
+  DealProducts(this.user, {Key? key}) : super(key: key);
 
   @override
   State<DealProducts> createState() => _DealProductsState();
@@ -188,17 +190,13 @@ class _DealProductsState extends State<DealProducts> {
                   ),
                   SizedBox(height: 10,),
                   Expanded(
-                    child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 1,
-                          mainAxisSpacing: 2.5,
-                          childAspectRatio: 2,
-                          // crossAxisSpacing: 2.5
-                        ),
+                    child: ListView.builder(
+                        padding: const EdgeInsets.all(8),
                         itemCount: products.length,
-                        itemBuilder: (context, index) {
-                          return ProductGridViewWidget(products[index]);
-                        }),
+                        itemBuilder: (BuildContext context, int index) {
+                          return ProductGridViewWidget(products[index], widget.user.isAdminstritiveUser);
+                        }
+                    ),
                   ),
 
                 ]
