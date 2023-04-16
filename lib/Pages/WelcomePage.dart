@@ -1,4 +1,6 @@
 import 'dart:ffi';
+import 'package:ecoprice/Pages/UserLogin.dart';
+
 import 'Style.dart';
 import 'ColorGradient.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,12 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     void navigateSignup(){
-      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+      Navigator.pushAndRemoveUntil(
+        context,
+          MaterialPageRoute(builder: (context) => UserLogin()),
+              (route) => false
+      );
+
     }
 
 

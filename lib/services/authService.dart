@@ -12,15 +12,19 @@ Future<User?> signup(String fullname, String mobileNumber, String email, String 
   Response response = await http.post(
     Uri.parse(ServerURL().url + '/user/create'),
     body: {
-      'fullname' : fullname,
+      'fullName' : fullname,
       'password' : password,
+      'email' : email,
       'mobileNumber' : mobileNumber,
-      'isAdminstritiveUser' : false
+      'isAdminstritiveUser' : false.toString()
     }
   );
+  //print(response.body);
   if(response.statusCode!=200)return null;
-
-  return User.fromJson(jsonDecode(response.body)['result']);
+  //print(response.body);
+  User user = User.fromJson(jsonDecode(response.body)['createdUser']);
+  print(user.toJson().toString());
+  return user;
 
 }
 

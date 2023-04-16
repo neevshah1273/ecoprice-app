@@ -1,15 +1,19 @@
+import 'package:ecoprice/Pages/Cart.dart';
+import 'package:ecoprice/Pages/ProductAdd.dart';
 import 'package:ecoprice/Pages/Style.dart';
 import 'package:ecoprice/services/productService.dart';
 import 'package:ecoprice/widgets/productGridViewWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/product.dart';
+import '../models/user.dart';
 import 'FilterProductDialog.dart';
 import 'Product.dart';
 import 'ColorGradient.dart';
 
 class Products extends StatefulWidget {
-  const Products({Key? key}) : super(key: key);
+  User? user;
+  Products(this.user, {Key? key}) : super(key: key);
 
   @override
   State<Products> createState() => _ProductsState();
@@ -21,6 +25,7 @@ class _ProductsState extends State<Products> {
 
   List<Product> products = [];
 
+
   @override
   void initState () {
     super.initState();
@@ -28,6 +33,7 @@ class _ProductsState extends State<Products> {
       _getAllproducts();
     });
   print(products);
+  //print(user)
   }
 
   _getAllproducts() async {
@@ -40,53 +46,87 @@ class _ProductsState extends State<Products> {
   }
 
 
-  void navigateHome(){
-    Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
 
-  }
 
-  void navigateDeals(){
-    Navigator.pushNamedAndRemoveUntil(context, '/deals', (route) => false);
 
-  }
-
-  void navigateQRCode(){
-    Navigator.pushNamedAndRemoveUntil(context, '/qr_scanner', (route) => false);
-
-  }
-
-  void navigateCart(){
-    Navigator.pushNamedAndRemoveUntil(context, '/cart', (route) => false);
-
-  }
-
-  void navigateProduct(String id){
-    Navigator.pushNamedAndRemoveUntil(context, '/product/${id}', (route) => false);
-
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      buttonSelected = index + 1;
-      if(_selectedIndex==0){
-        navigateHome();
-      }
-      if(_selectedIndex==1){
-        navigateDeals();
-      }
-      else if(_selectedIndex==2){
-        navigateQRCode();
-      }
-      else if(_selectedIndex==3){
-        navigateCart();
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     //print(Theme.of(context).primaryColor);
+
+    User? user = widget.user;
+
+    void navigateHome(){
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Products(user)),
+              (route) => false
+      );
+
+    }
+
+    void navigateDeals(){
+      //TODO:: Dealsss
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Products(user)),
+              (route) => false
+      );
+    }
+
+    void navigateQRCode(){
+      //TODO::: QRRRRRR
+      Navigator.pushNamedAndRemoveUntil(context, '/qr_scanner', (route) => false);
+
+    }
+
+    void navigateCart(){
+      //TODO::
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => Cart()),
+            (route) => false
+    );
+    }
+
+    void navigateProduct(String id){
+      //TODO:: product page
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Products(user)),
+              (route) => false
+      );
+    }
+
+    void navigateAddProduct(){
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProductAdd(user!)),
+
+      );
+    }
+
+    void _onItemTapped(int index) {
+      setState(() {
+        _selectedIndex = index;
+        buttonSelected = index + 1;
+        if(_selectedIndex==0){
+          navigateHome();
+        }
+        if(_selectedIndex==1){
+          navigateDeals();
+        }
+        else if(_selectedIndex==2){
+          navigateQRCode();
+        }
+        else if(_selectedIndex==3){
+          navigateCart();
+        }
+      });
+    }
+
+
 
     return SafeArea(
         child: Scaffold(
@@ -107,6 +147,18 @@ class _ProductsState extends State<Products> {
           ),
         ),
         centerTitle: true,
+            actions: <Widget>[
+
+              (user?.isAdminstritiveUser ?? false)? IconButton(
+                icon: Icon(
+                  Icons.add_box_rounded,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  navigateAddProduct();
+                },
+              ): Container()
+            ],
       ),
             body: Column(
         children: <Widget>[
@@ -231,6 +283,7 @@ class _ProductsState extends State<Products> {
         child: BottomNavigationBar(
           backgroundColor: Colors.transparent,
           // selectedItemColor: Colors.white,
+          onTap: _onItemTapped,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Icon(

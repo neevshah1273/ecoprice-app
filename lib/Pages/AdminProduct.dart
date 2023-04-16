@@ -73,17 +73,7 @@ class _ProductsState extends State<AdminProduct> {
               ),
             ),
             backgroundColor: Style.primaryColor,
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.add_box_rounded,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  // do something
-                },
-              )
-            ],
+
             title: Text(
               "Products",
               style: GoogleFonts.montserrat(
