@@ -294,7 +294,7 @@ class _ProductsState extends State<Products> {
                       child: GridView.builder(
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 1,
-                        mainAxisSpacing: 2.5,
+                        // mainAxisSpacing: 2.5,
                         childAspectRatio: 2,
                         // crossAxisSpacing: 2.5
                       ),
