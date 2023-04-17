@@ -26,8 +26,11 @@ class _ProductState extends State<ProductAdd> {
   final quantityController = TextEditingController();
   final categoryController = TextEditingController();
   final dailyconsumeController = TextEditingController();
+  String? ss;
 
-  void create(String? ss) async{
+  void create() async{
+
+    print(ss);
 
     Product product = Product(
 
@@ -43,7 +46,7 @@ class _ProductState extends State<ProductAdd> {
 
     );
 
-   print(product.toJson().toString());
+    print(product.toJson().toString());
 
     Product? createdProduct = await createProduct(product);
     print(createdProduct?.toJson().toString());
@@ -65,14 +68,17 @@ class _ProductState extends State<ProductAdd> {
       //convert Path to File
       Uint8List imagebytes = await pickedFile.readAsBytes(); //convert to bytes
       String base64string = base64.encode(imagebytes); //convert bytes to base64 string
-      print(base64string);
+      //print(base64string);
 
       return base64string;
     }
 
-    String? ss;
+
     void imageHandle() async {
-       ss = await pickImageAndEncodeBase64();
+      String? ssf = await pickImageAndEncodeBase64();
+      setState(() {
+        ss = ssf;
+      });
       print(ss);
     }
 
@@ -95,9 +101,9 @@ class _ProductState extends State<ProductAdd> {
       body: SingleChildScrollView(
         child: Container(
           decoration: BoxDecoration(
-              color: Color(0xffFEFFF8),
-              borderRadius: BorderRadius.circular(10.0),),
-              // border: Border.all(color: Colors.black, width: 2.0)),
+            color: Color(0xffFEFFF8),
+            borderRadius: BorderRadius.circular(10.0),),
+          // border: Border.all(color: Colors.black, width: 2.0)),
           child: Column(
             children: <Widget>[
               SizedBox(
@@ -134,7 +140,7 @@ class _ProductState extends State<ProductAdd> {
                       hintStyle: GoogleFonts.montserrat(),
                       hintText: "Product Name",
                       contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
                 ),
               ),
               Container(
@@ -203,7 +209,7 @@ class _ProductState extends State<ProductAdd> {
                       hintStyle: GoogleFonts.montserrat(),
                       hintText: "Current Price",
                       contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
                 ),
               ),
               Container(
@@ -238,7 +244,7 @@ class _ProductState extends State<ProductAdd> {
                       hintStyle: GoogleFonts.montserrat(),
                       hintText: "Original Price",
                       contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
                 ),
               ),
               Container(
@@ -273,7 +279,7 @@ class _ProductState extends State<ProductAdd> {
                       hintStyle: GoogleFonts.montserrat(),
                       hintText: "Days left",
                       contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
                 ),
               ),
               Container(
@@ -419,11 +425,11 @@ class _ProductState extends State<ProductAdd> {
                             children: <Widget>[
                               TextButton(
                                 onPressed: (){
-                                  
-                                  create(ss);
+                                  print(ss);
+                                  create();
 
-                                  
-                                  
+
+
                                 },
                                 child: Text("Add", style: GoogleFonts.montserrat(
                                   color: Colors.white,

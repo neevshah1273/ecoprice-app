@@ -1,7 +1,7 @@
 import 'package:ecoprice/Pages/Style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Product.dart';
+
 import 'ColorGradient.dart';
 
 class FilterProductDialog extends StatefulWidget {

@@ -41,7 +41,13 @@ dependencies:
   qr_code_scanner: ^1.0.1
   searchfield: ^0.6.6
   permission_handler: ^10.2.0
+
   equatable: ^2.0.5
+
+  mobile_scanner: ^3.2.0
+  speech_recognition: ^0.3.0+1 #NEW
+  speech_to_text:
+
 #  camera: ^0.9.4+19
 
 

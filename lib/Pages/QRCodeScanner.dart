@@ -4,22 +4,11 @@ import 'package:camera/camera.dart';
 import 'package:ecoprice/Pages/Products.dart';
 import 'package:flutter/material.dart';
 import 'ColorGradient.dart';
-import 'package:camera/camera.dart';
 import 'package:ecoprice/Pages/Cart.dart';
 import 'package:ecoprice/Pages/DealProducts.dart';
 import 'package:ecoprice/Pages/ProductAdd.dart';
-import 'package:ecoprice/Pages/QRCodeScanner.dart';
-import 'package:ecoprice/Pages/Style.dart';
-import 'package:ecoprice/Pages/WelcomePage.dart';
-import 'package:ecoprice/services/productService.dart';
-import 'package:ecoprice/widgets/productGridViewWidget.dart';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:searchfield/searchfield.dart';
-import '../models/product.dart';
 import '../models/user.dart';
-import 'ColorGradient.dart';
-import 'Product.dart';
 
 class TakePictureScreen extends StatefulWidget {
   User user;
@@ -38,8 +27,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
 
-  int _selectedIndex = 0;
-  int buttonSelected = 1;
+  int _selectedIndex = 2;
+  int buttonSelected = 3;
 
 
   @override
@@ -147,10 +136,17 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Take a picture')),
-      // You must wait until the controller is initialized before displaying the
-      // camera preview. Use a FutureBuilder to display a loading spinner until the
-      // controller has finished initializing.
+      appBar: AppBar(
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: ColorGradient.getGradient(degree: 140), // Set the gradient
+            ),),
+          title: Center(
+            child: Text('Scan QR Code', style: GoogleFonts.montserrat(
+            fontWeight: FontWeight.w400,
+        fontSize: 25,
+      ),),
+          )),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
@@ -166,8 +162,6 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       floatingActionButton: FloatingActionButton(
         // Provide an onPressed callback.
         onPressed: () async {
-          // Take the Picture in a try / catch block. If anything goes wrong,
-          // catch the error.
           try {
             // Ensure that the camera is initialized.
             await _initializeControllerFuture;

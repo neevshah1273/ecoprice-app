@@ -1,30 +1,52 @@
-import 'package:ecoprice/Pages/Style.dart';
-import 'package:ecoprice/services/productService.dart';
-import 'package:ecoprice/widgets/productGridViewWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/product.dart';
+import '../models/user.dart';
+import 'Cart.dart';
 import 'ItemCounter.dart';
-import 'FilterProductDialog.dart';
-import 'Product.dart';
 import 'ColorGradient.dart';
+import 'dart:typed_data';
+import 'Products.dart';
+import 'dart:convert';
 
 
 class ProductPage extends StatefulWidget {
   Product product;
-  ProductPage(this.product ,{Key? key}) : super(key: key);
+  User user;
+  ProductPage(this.product, this.user ,{Key? key}) : super(key: key);
 
   @override
   State<ProductPage> createState() => _ProductPageState();
 }
 
 class _ProductPageState extends State<ProductPage> {
+  dynamic getImage(String encoded) {
+    Uint8List bytes = base64.decode(encoded.split(',').last);
+    return bytes;
+  }
+
 
   @override
   Widget build(BuildContext context) {
 
     Product product = widget.product;
+    User user = widget.user;
 
+    void navigateCart() {
+      //TODO::
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => CartPage(user)),
+              (route) => false);
+    }
+
+    void navigateHome(){
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Products(user)),
+              (route) => false
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -50,20 +72,13 @@ class _ProductPageState extends State<ProductPage> {
                 border: Border.all(color: Colors.black, width: 1.75),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Image.asset("lib/images/Tomato.png"),
+              child: Image.memory(getImage(widget.product.image),),
             ),
             SizedBox(height: 50,),
-            Text("Tomato",
+            Text("${product.title}",
               style: GoogleFonts.montserrat(
                 color: Color(0xff579a22),
                 fontSize: 35,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            Text("2lbs",
-              style: GoogleFonts.montserrat(
-                color: Colors.black87,
-                fontSize: 25,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -71,8 +86,7 @@ class _ProductPageState extends State<ProductPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  "\$1.88",
+                Text("${product.currentPrice}",
                   style: GoogleFonts.montserrat(
                     fontSize: 30,
                     fontWeight: FontWeight.w700,
@@ -80,7 +94,7 @@ class _ProductPageState extends State<ProductPage> {
                 ),
                 SizedBox(width: 20,),
                 Text(
-                  "\$1.88",
+                  "${product.originalPrice}",
                   style: GoogleFonts.montserrat(
                     fontSize: 20,
                     color: Colors.red,
@@ -98,7 +112,7 @@ class _ProductPageState extends State<ProductPage> {
                 color: Colors.black54,
               ),
             ),
-            Text("5 days",
+            Text("${product.dueDate} days",
               style: GoogleFonts.montserrat(
                 fontSize: 30,
                 fontWeight: FontWeight.w500,
@@ -114,7 +128,9 @@ class _ProductPageState extends State<ProductPage> {
                       primary: Color(0xff579a22), // Set the desired color of the ElevatedButton
                       // You can also customize other properties of the button, such as textStyle, padding, elevation, shape, etc.
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+                      navigateHome();
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.arrow_back_ios_sharp),
@@ -132,7 +148,9 @@ class _ProductPageState extends State<ProductPage> {
                       primary: Color(0xff579a22), // Set the desired color of the ElevatedButton
                       // You can also customize other properties of the button, such as textStyle, padding, elevation, shape, etc.
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+                      navigateCart();
+                    },
                     child: Row(
                       children: [
                         Text("Cart", style: GoogleFonts.montserrat(
