@@ -1,10 +1,13 @@
+import 'package:ecoprice/models/product.dart';
+import 'package:ecoprice/services/productService.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Style.dart';
 import 'ColorGradient.dart';
 
 class ProductEdit extends StatefulWidget {
-  const ProductEdit({Key? key}) : super(key: key);
+  Product product;
+  ProductEdit(this.product, {Key? key}) : super(key: key);
 
   @override
   State<ProductEdit> createState() => _ProductState();
@@ -12,12 +15,53 @@ class ProductEdit extends StatefulWidget {
 
 class _ProductState extends State<ProductEdit> {
   final productNameController = TextEditingController();
+  final categoryController = TextEditingController();
+  final quantityController = TextEditingController();
   final currentPriceController = TextEditingController();
   final originalPriceController = TextEditingController();
   final expirationDaysLeftController = TextEditingController();
 
+
+  @override
+  void initState(){
+
+    productNameController.text = widget.product.title!;
+    categoryController.text = widget.product.category;
+    quantityController.text = widget.product.quantity.toString();
+    currentPriceController.text = widget.product.currentPrice.toString();
+    originalPriceController.text = widget.product.originalPrice.toString();
+    expirationDaysLeftController.text = widget.product.dueDate.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    Product product = widget.product;
+
+
+
+
+
+
+
+    void edit()async{
+      Product newProduct = Product(
+          id: product.id,
+          title: productNameController.text,
+          category: categoryController.text,
+          image: product.image,
+          dueDate: product.dueDate,
+          quantity: int.parse(quantityController.text),
+          currentPrice: double.parse(currentPriceController.text),
+          originalPrice: double.parse(originalPriceController.text),
+          dailyConsume: product.dailyConsume
+      );
+      Product res = await editProduct(newProduct);
+      print(res.toJson().toString());
+      Navigator.pop(context);
+    }
+
+
     return Scaffold(
       // resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -83,11 +127,7 @@ class _ProductState extends State<ProductEdit> {
                               TextButton(
                                 onPressed: () {
 
-                                  print(productNameController.text);
-                                  print(currentPriceController.text);
-                                  print(originalPriceController.text);
-                                  print(expirationDaysLeftController.text);
-
+                                  edit();
                                 },
                                 child: Text(
                                   "Save",
@@ -336,7 +376,7 @@ class _ProductState extends State<ProductEdit> {
                 // padding: EdgeInsetsDirectional.symmetric(
                 //     horizontal: MediaQuery.of(context).size.width / 10),
                 child: TextField(
-                  controller: expirationDaysLeftController,
+                  controller: quantityController,
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.black),
@@ -350,6 +390,46 @@ class _ProductState extends State<ProductEdit> {
                       EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
                 ),
               ),
+              Container(
+                  margin: EdgeInsets.only(bottom: 5),
+                  padding: EdgeInsetsDirectional.fromSTEB(
+                      MediaQuery.of(context).size.width / 10,
+                      0,
+                      MediaQuery.of(context).size.width / 10,
+                      0),
+                  // padding: EdgeInsetsDirectional.symmetric(
+                  //     horizontal: MediaQuery.of(context).size.width / 10),
+                  alignment: Alignment.centerLeft,
+                  child: Text("Category ",
+                      style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                      ))),
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                padding: EdgeInsetsDirectional.fromSTEB(
+                    MediaQuery.of(context).size.width / 10,
+                    0,
+                    MediaQuery.of(context).size.width / 10,
+                    0),
+                // padding: EdgeInsetsDirectional.symmetric(
+                //     horizontal: MediaQuery.of(context).size.width / 10),
+                child: TextField(
+                  controller: categoryController,
+                  decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      hintStyle: GoogleFonts.montserrat(),
+                      hintText: "Quantity",
+                      contentPadding:
+                      EdgeInsets.symmetric(horizontal: 10, vertical: 5)),
+                ),
+              ),
+
             ],
           ),
         ),

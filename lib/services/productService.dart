@@ -59,12 +59,14 @@ Future<Product> fetchProduct(String id) async {
 }
 
 Future<Product> editProduct(Product product) async{
-  Response response = await http.post(
-      Uri.parse(ServerURL().url + '/product/create'),
+  Response response = await http.put(
+      Uri.parse(ServerURL().url + '/product/edit'),
       body: {
         'product' : jsonEncode(product)
       }
   );
+
+  print(response.body);
 
   return Product.fromJson(jsonDecode(response.body)['result']);
 

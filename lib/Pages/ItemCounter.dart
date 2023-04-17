@@ -15,7 +15,6 @@ class CounterApp extends StatefulWidget {
 class _CounterAppState extends State<CounterApp> {
 
 
-  int _counter = 0;
 
   void _incrementCounter(Product product) {
     setState(() {

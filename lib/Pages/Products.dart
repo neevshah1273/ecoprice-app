@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:camera/camera.dart';
 import 'package:ecoprice/Pages/Cart.dart';
 import 'package:ecoprice/Pages/DealProducts.dart';
@@ -24,6 +26,7 @@ class Products extends StatefulWidget {
 
 class _ProductsState extends State<Products> {
 
+  late Timer _timer;
   List<String> Categories = ["All","Fruits", "Veggies", "Dairy", "Bakery", "Eggs", "Pasta", "Cereals", "Sauces", "Drinks"];
   String selectedCategory = "All";
 
@@ -62,14 +65,71 @@ class _ProductsState extends State<Products> {
     WidgetsBinding.instance.addPostFrameCallback((_){
       _getAllproducts();
     });
-  print(products);
+    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
+      // Call the method you want to refresh here
+      _getAllproducts();
+    });
+
   //print(user)
   }
 
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer when the widget is disposed
+    super.dispose();
+  }
 
-  _getAllproducts() async {
+
+  void _getAllproducts() async {
 
     List<Product> prod = await fetchAllProducts();
+    bool isEqual = true;
+
+
+    if(prod.length==products.length){
+
+      for(int i=0;i<prod.length;i++){
+        if(prod[i].equals(products[i])){
+
+        }
+        else{
+          isEqual = false;
+          break;
+        }
+      }
+
+      // for(int i = 0; i < prod.length; i++){
+      //   for(Product origProduct in products){
+      //     Product newProduct = prod[i];
+      //     print("Comparing: " + newProduct.title! + ' & ' + origProduct.title!);
+      //     if (newProduct.equals(origProduct)){
+      //       tempProducts.remove(newProduct);
+      //       break;
+      //     }
+      //   }
+      // }
+      // if (tempProducts.isEmpty){
+      //   print("No change.");
+      // } else {
+      // }
+
+      // for(int i=0;i<prod.length;i++){
+      //   if(prod[i].toJson()!=products[i].toJson()){
+      //     print(i);
+      //     print(prod[i].toJson().toString());
+      //     print(products[i].toJson().toString());
+      //     isEqual = false;
+      //     break;
+      //   }
+      // }
+    }
+    else{
+      isEqual = false;
+    }
+
+    if(isEqual)return;
+
+
 
     setState(()  {
       products = prod;
@@ -196,7 +256,7 @@ class _ProductsState extends State<Products> {
             actions: <Widget>[
 
 
-              (user?.isAdminstritiveUser ?? false)? IconButton(
+              (user.isAdminstritiveUser)? IconButton(
                 icon: Icon(
                   Icons.add_box_rounded,
                   color: Colors.white,
