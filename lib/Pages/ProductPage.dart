@@ -10,16 +10,21 @@ import 'Product.dart';
 import 'ColorGradient.dart';
 
 
-class Product extends StatefulWidget {
-  const Product({Key? key}) : super(key: key);
+class ProductPage extends StatefulWidget {
+  Product product;
+  ProductPage(this.product ,{Key? key}) : super(key: key);
 
   @override
-  State<Product> createState() => _ProductState();
+  State<ProductPage> createState() => _ProductPageState();
 }
 
-class _ProductState extends State<Product> {
+class _ProductPageState extends State<ProductPage> {
+
   @override
   Widget build(BuildContext context) {
+
+    Product product = widget.product;
+
     return Scaffold(
       appBar: AppBar(
         flexibleSpace: Container(
@@ -99,7 +104,7 @@ class _ProductState extends State<Product> {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            CounterApp(),
+            CounterApp(product),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

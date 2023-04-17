@@ -1,14 +1,18 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import '../Pages/ItemCounter.dart';
+
+
 import 'package:ecoprice/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductGridViewWidget extends StatefulWidget {
   Product product;
+
   bool isAdmin;
   ProductGridViewWidget(this.product, this.isAdmin, {super.key});
+
 
   @override
   State<ProductGridViewWidget> createState() => _ProductGridViewWidgetState();
@@ -120,7 +124,8 @@ class _ProductGridViewWidgetState extends State<ProductGridViewWidget> {
                       fontWeight: FontWeight.w500,
                       color: Colors.black87),
                 ): Container(),
-                CounterApp(),
+                SizedBox(height: 20,),
+                CounterApp(widget.product),
               ],
             ),
           ),
