@@ -1,12 +1,31 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:camera/camera.dart';
+import 'package:ecoprice/Pages/Products.dart';
 import 'package:flutter/material.dart';
+import 'ColorGradient.dart';
+import 'package:camera/camera.dart';
+import 'package:ecoprice/Pages/Cart.dart';
+import 'package:ecoprice/Pages/DealProducts.dart';
+import 'package:ecoprice/Pages/ProductAdd.dart';
+import 'package:ecoprice/Pages/QRCodeScanner.dart';
+import 'package:ecoprice/Pages/Style.dart';
+import 'package:ecoprice/Pages/WelcomePage.dart';
+import 'package:ecoprice/services/productService.dart';
+import 'package:ecoprice/widgets/productGridViewWidget.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:searchfield/searchfield.dart';
+import '../models/product.dart';
+import '../models/user.dart';
+import 'ColorGradient.dart';
+import 'Product.dart';
 
 class TakePictureScreen extends StatefulWidget {
-  const TakePictureScreen({
+  User user;
+  TakePictureScreen(this.user, {
     super.key,
-    required this.camera,
+    required this.camera
   });
 
   final CameraDescription camera;
@@ -18,6 +37,10 @@ class TakePictureScreen extends StatefulWidget {
 class TakePictureScreenState extends State<TakePictureScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+
+  int _selectedIndex = 0;
+  int buttonSelected = 1;
+
 
   @override
   void initState() {
@@ -44,6 +67,85 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    User user = widget.user;
+    void navigateHome(){
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Products(user)),
+              (route) => false
+      );
+
+    }
+
+    void navigateDeals(){
+      //TODO:: Dealsss
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => DealProducts(user)),
+              (route) => false
+      );
+    }
+
+    void navigateQRCode() async {
+      //TODO::: QRRRRRR
+      WidgetsFlutterBinding.ensureInitialized();
+
+      // Obtain a list of the available cameras on the device.
+      final cameras = await availableCameras();
+
+      // Get a specific camera from the list of available cameras.
+      final firstCamera = cameras.first;
+      Navigator.push(context, MaterialPageRoute(builder: (context) => TakePictureScreen(user, camera: firstCamera)));
+    }
+
+    void navigateCart(){
+      //TODO::
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Cart()),
+              (route) => false
+      );
+    }
+
+    void navigateProduct(String id){
+      //TODO:: product page
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Products(user)),
+              (route) => false
+      );
+    }
+
+    void navigateAddProduct(){
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ProductAdd(user!)),
+
+      );
+    }
+
+    void _onItemTapped(int index) {
+      setState(() {
+
+        _selectedIndex = index;
+        buttonSelected = index + 1;
+        if(_selectedIndex==0){
+          navigateHome();
+        }
+        if(_selectedIndex==1){
+          navigateDeals();
+        }
+        else if(_selectedIndex==2){
+          navigateQRCode();
+        }
+        else if(_selectedIndex==3){
+          navigateCart();
+        }
+
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(title: const Text('Take a picture')),
       // You must wait until the controller is initialized before displaying the
@@ -92,6 +194,53 @@ class TakePictureScreenState extends State<TakePictureScreen> {
           }
         },
         child: const Icon(Icons.camera_alt),
+      ),
+      bottomNavigationBar: Container(
+          height: 60,
+          decoration: BoxDecoration(
+            gradient: ColorGradient.getGradient(),
+          ),
+          child: BottomNavigationBar(
+            onTap: (index) => _onItemTapped(index),
+            backgroundColor: Colors.transparent,
+            selectedItemColor: Colors.white,
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
+                    color: buttonSelected == 1 ? Colors.white : Colors.black,
+                  ),
+                  label: 'Home',
+                  backgroundColor: Colors.transparent),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.discount,
+                    color: buttonSelected == 2 ? Colors.white : Colors.black,
+                  ),
+                  label: 'Deals',
+                  // backgroundColor: Colors.white,
+                  backgroundColor: Colors.transparent),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.qr_code_scanner,
+                    color: buttonSelected == 3 ? Colors.white : Colors.black,
+                  ),
+                  label: "QR Code",
+                  backgroundColor: Colors.transparent),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: buttonSelected == 4 ? Colors.white : Colors.black,
+                  ),
+                  label: "Chart",
+                  backgroundColor: Colors.transparent)
+            ],
+            currentIndex: _selectedIndex,
+            selectedLabelStyle: GoogleFonts.montserrat(
+              fontSize: 15,
+
+            ),
+          )
       ),
     );
   }

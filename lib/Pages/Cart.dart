@@ -1,10 +1,14 @@
 import 'package:ecoprice/Pages/Style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ecoprice/widgets/productGridViewWidget.dart';
+import 'package:ecoprice/models/product.dart';
 import 'Product.dart';
+import 'package:ecoprice/models/user.dart';
 import 'ColorGradient.dart';
 
 class Cart extends StatefulWidget {
+
   const Cart({Key? key}) : super(key: key);
 
   @override
@@ -12,8 +16,12 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  int _selectedIndex = 0;
-  int buttonSelected = 1;
+
+  int _selectedIndex = 3;
+  int buttonSelected = 4;
+
+  // List<Product> checkedOutProducts = [];
+  // List<Product> selectedProducts = [];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -50,7 +58,7 @@ class _CartState extends State<Cart> {
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 10, right: 10),
-                  height: 0.2 * MediaQuery.of(context).size.height,
+                  height: 0.22 * MediaQuery.of(context).size.height,
                   decoration: BoxDecoration(
                     // color: Colors.blue,
                     borderRadius: BorderRadius.circular(10),
@@ -70,19 +78,19 @@ class _CartState extends State<Cart> {
                                   Text(
                                     "Hello,",
                                     style: GoogleFonts.montserrat(
-                                      fontSize: 25,
+                                      fontSize: 20,
                                     ),
                                   ),
                                   Text("Tirth",
                                       style: GoogleFonts.montserrat(
-                                        fontSize: 40,
+                                        fontSize: 32,
                                         color: Style.primaryColor,
                                         fontWeight: FontWeight.w500,
                                       )),
                                 ],
                               ),
                               SizedBox(
-                                width: 0.4 * MediaQuery.of(context).size.width,
+                                width: 0.47 * MediaQuery.of(context).size.width,
                               ),
                               Image.asset("lib/images/buy.png",
                                   width: 100, height: 80)
@@ -122,7 +130,7 @@ class _CartState extends State<Cart> {
                                         "Check Out",
                                         style: GoogleFonts.montserrat(
                                           color: Colors.white,
-                                          fontSize: 15,
+                                          fontSize: 10,
                                           fontWeight: FontWeight.w400,
                                         ),
                                       )),
@@ -180,122 +188,131 @@ class _CartState extends State<Cart> {
                     ],
                   ),
                 ),
-                Expanded(
-                  child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 2.5,
-                              crossAxisSpacing: 2.5),
-                      itemBuilder: (context, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                width: 1,
-                                color: Color(0xff000000),
-                              )),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Center(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset("lib/images/Tomato.png",
-                                      width: 100, height: 100),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "Roma Tomato",
-                                    style: GoogleFonts.montserrat(
-                                      fontSize: 17.5,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Text(
-                                    "2lbs",
-                                    style: GoogleFonts.montserrat(
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "\$1.25",
-                                    style: GoogleFonts.montserrat(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "\$1.88",
-                                    style: GoogleFonts.montserrat(
-                                        decoration: TextDecoration.lineThrough,
-                                        color: Colors.red),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "Expires in",
-                                    style: GoogleFonts.montserrat(
-                                      fontSize: 15,
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "2 days",
-                                    style: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black87),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          // decoration: BoxDecoration(
-                          //   borderRadius: BorderRadius.circular(2)
-                          // ),
-                          margin: EdgeInsets.all(10),
-                          height: 100,
-                          width: 100,
-                          // color: Colors.white,
-                        );
-                      }),
-                )
+                // Expanded(
+                //   child: ListView.builder(
+                //       padding: const EdgeInsets.all(8),
+                //       itemCount: checkedOutProducts.length,
+                //       itemBuilder: (BuildContext context, int index) {
+                //         return ProductGridViewWidget(checkedOutProducts[index], user?.isAdminstritiveUser ?? false);
+                //       }
+                //   ),
+                // ),
+                // Expanded(
+                //   child: GridView.builder(
+                //       gridDelegate:
+                //           const SliverGridDelegateWithFixedCrossAxisCount(
+                //               crossAxisCount: 2,
+                //               mainAxisSpacing: 2.5,
+                //               crossAxisSpacing: 2.5),
+                //       itemBuilder: (context, index) {
+                //         return Container(
+                //           decoration: BoxDecoration(
+                //               borderRadius: BorderRadius.circular(10),
+                //               border: Border.all(
+                //                 width: 1,
+                //                 color: Color(0xff000000),
+                //               )),
+                //           child: Column(
+                //             children: [
+                //               SizedBox(
+                //                 height: 5,
+                //               ),
+                //               Center(
+                //                 child: ClipRRect(
+                //                   borderRadius: BorderRadius.circular(10),
+                //                   child: Image.asset("lib/images/Tomato.png",
+                //                       width: 100, height: 100),
+                //                 ),
+                //               ),
+                //               SizedBox(
+                //                 height: 5,
+                //               ),
+                //               Row(
+                //                 children: [
+                //                   SizedBox(
+                //                     width: 10,
+                //                   ),
+                //                   Text(
+                //                     "Roma Tomato",
+                //                     style: GoogleFonts.montserrat(
+                //                       fontSize: 17.5,
+                //                     ),
+                //                   ),
+                //                   SizedBox(
+                //                     width: 5,
+                //                   ),
+                //                   Text(
+                //                     "2lbs",
+                //                     style: GoogleFonts.montserrat(
+                //                       fontSize: 12,
+                //                     ),
+                //                   ),
+                //                 ],
+                //               ),
+                //               SizedBox(
+                //                 height: 5,
+                //               ),
+                //               Row(
+                //                 children: [
+                //                   SizedBox(
+                //                     width: 10,
+                //                   ),
+                //                   Text(
+                //                     "\$1.25",
+                //                     style: GoogleFonts.montserrat(
+                //                       fontSize: 15,
+                //                       fontWeight: FontWeight.w700,
+                //                     ),
+                //                   ),
+                //                   SizedBox(
+                //                     width: 10,
+                //                   ),
+                //                   Text(
+                //                     "\$1.88",
+                //                     style: GoogleFonts.montserrat(
+                //                         decoration: TextDecoration.lineThrough,
+                //                         color: Colors.red),
+                //                   ),
+                //                 ],
+                //               ),
+                //               SizedBox(
+                //                 height: 5,
+                //               ),
+                //               Row(
+                //                 children: [
+                //                   SizedBox(
+                //                     width: 10,
+                //                   ),
+                //                   Text(
+                //                     "Expires in",
+                //                     style: GoogleFonts.montserrat(
+                //                       fontSize: 15,
+                //                       color: Colors.black54,
+                //                     ),
+                //                   ),
+                //                   SizedBox(
+                //                     width: 10,
+                //                   ),
+                //                   Text(
+                //                     "2 days",
+                //                     style: GoogleFonts.montserrat(
+                //                         fontWeight: FontWeight.w500,
+                //                         color: Colors.black87),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ],
+                //           ),
+                //           // decoration: BoxDecoration(
+                //           //   borderRadius: BorderRadius.circular(2)
+                //           // ),
+                //           margin: EdgeInsets.all(10),
+                //           height: 100,
+                //           width: 100,
+                //           // color: Colors.white,
+                //         );
+                //       }),
+                // )
               ],
             ),
             bottomNavigationBar: Container(
