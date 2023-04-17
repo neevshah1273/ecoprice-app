@@ -138,6 +138,7 @@ class _UserLoginState extends State<UserLogin> {
                   padding:
                   const EdgeInsets.only(left: 50, right: 50, top: 10, bottom: 20),
                   child: TextField(
+                    obscureText: true,
                     controller: passwordController,
                     decoration: InputDecoration(
                         prefixIcon: const Icon(
@@ -172,7 +173,6 @@ class _UserLoginState extends State<UserLogin> {
                         children: <Widget>[
                           TextButton(
                             onPressed: () {
-
                               logIn();
 
                               // print('Input value: $userName');

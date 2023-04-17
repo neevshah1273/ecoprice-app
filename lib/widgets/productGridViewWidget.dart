@@ -57,12 +57,6 @@ class _ProductGridViewWidgetState extends State<ProductGridViewWidget> {
                   fontSize: 20,
                 ),
               ),
-              Text(
-                "2lbs",
-                style: GoogleFonts.montserrat(
-                  fontSize: 15,
-                ),
-              ),
             ],
           )),
           Expanded(
@@ -124,7 +118,6 @@ class _ProductGridViewWidgetState extends State<ProductGridViewWidget> {
                       fontWeight: FontWeight.w500,
                       color: Colors.black87),
                 ): Container(),
-                SizedBox(height: 20,),
                 CounterApp(widget.product),
               ],
             ),

@@ -129,7 +129,7 @@ class _ProductsState extends State<Products> {
       //TODO::
     Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => Cart()),
+        MaterialPageRoute(builder: (context) => CartPage(user)),
             (route) => false
     );
     }

@@ -6,7 +6,9 @@ import 'package:gif_view/gif_view.dart';
 import 'ColorGradient.dart';
 
 class CheckOut extends StatelessWidget {
-  const CheckOut({Key? key}) : super(key: key);
+  // CheckOut({Key? key, required this.totalSavings}) : super(key: key);
+  CheckOut({super.key, required this.totalSavings});
+  double totalSavings;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,7 @@ class CheckOut extends StatelessWidget {
                 color: Style.primaryColor,
                 fontWeight: FontWeight.w500,
               ),),
-              Text("\$1.25", style: GoogleFonts.montserrat(
+              Text("${totalSavings}", style: GoogleFonts.montserrat(
                 fontSize: 35,
                 color: Color(0xff3f7d27),
                 fontWeight: FontWeight.w500,

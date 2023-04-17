@@ -3,9 +3,11 @@ import 'package:ecoprice/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Style.dart';
+import 'Cart.dart';
 
 class CounterApp extends StatefulWidget {
   Product product;
+
   CounterApp(this.product);
 
   @override
@@ -21,29 +23,27 @@ class _CounterAppState extends State<CounterApp> {
     setState(() {
       Cart.addProductQuantity(product);
     });
-
   }
 
   void _decrementCounter(Product product) {
-
-    if(Cart.getProductQuantity(product)>0) {
+    if (Cart.getProductQuantity(product) > 0) {
       setState(() {
         Cart.removeProductQuantity(product);
       });
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     Product product = widget.product;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextButton(
-          onPressed: () => _decrementCounter(product),
+          onPressed: () {
+          _decrementCounter(product);
+        },
           child: Icon(Icons.remove, color: Colors.green,),
         ),
         Text(
@@ -62,7 +62,10 @@ class _CounterAppState extends State<CounterApp> {
           // style: TextButton.styleFrom(
           //   fixedSize: Size(10, 10),
           // ),
-          onPressed: () => _incrementCounter(product),
+          onPressed: () {
+            _incrementCounter(product);
+
+          },
           child: Icon(Icons.add, color: Colors.green,),
         ),
       ],
@@ -73,7 +76,6 @@ class _CounterAppState extends State<CounterApp> {
 // void main() {
 //   runApp(CounterApp());
 // }
-
 
 
 // Row(

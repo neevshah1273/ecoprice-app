@@ -59,12 +59,6 @@ class _SignUpState extends State<SignUp> {
 
     void signUp() async {
 
-      // print("Name : " + nameController.text);
-      // print("Phone Number : " + phoneNumberController.text);
-      // print("Email Address : " + emailAddressController.text);
-      // print("Password : " + passwordController.text);
-      // print("Confirm Password : " + confirmPasswordController.text);
-
       if(passwordController.text!=confirmPasswordController.text) {
         //TODO:: Add dialog box of password and confirm passwords must match
       }
@@ -205,6 +199,7 @@ class _SignUpState extends State<SignUp> {
                 horizontal: (MediaQuery.of(context).size.width) / 5,
                 vertical: 7.5),
             child: TextField(
+              obscureText: true,
               controller: passwordController,
               decoration: InputDecoration(
                   prefixIcon: Icon(
@@ -230,6 +225,7 @@ class _SignUpState extends State<SignUp> {
                 horizontal: (MediaQuery.of(context).size.width) / 5,
                 vertical: 7.5),
             child: TextField(
+              obscureText: true,
               controller: confirmPasswordController,
               decoration: InputDecoration(
                   prefixIcon: Icon(

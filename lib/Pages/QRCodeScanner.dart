@@ -103,7 +103,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       //TODO::
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => Cart()),
+          MaterialPageRoute(builder: (context) => CartPage(user)),
               (route) => false
       );
     }
