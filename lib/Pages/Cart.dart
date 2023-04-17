@@ -1,46 +1,109 @@
+import 'package:ecoprice/Pages/CheckOut.dart';
 import 'package:ecoprice/Pages/Style.dart';
+import 'QRCodeScanner.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'Products.dart';
+import 'package:camera/camera.dart';
 import 'package:ecoprice/widgets/productGridViewWidget.dart';
+import 'DealProducts.dart';
 import 'package:ecoprice/models/product.dart';
-import 'Product.dart';
+import '../models/Cart.dart';
 import 'package:ecoprice/models/user.dart';
 import 'ColorGradient.dart';
 
-class Cart extends StatefulWidget {
+class CartPage extends StatefulWidget {
+  User user;
 
-  const Cart({Key? key}) : super(key: key);
+  CartPage(this.user, {Key? key}) : super(key: key);
 
   @override
-  State<Cart> createState() => _CartState();
+  State<CartPage> createState() => _CartPageState();
 }
 
-class _CartState extends State<Cart> {
-
+class _CartPageState extends State<CartPage> {
   int _selectedIndex = 3;
   int buttonSelected = 4;
 
-  // List<Product> checkedOutProducts = [];
-  // List<Product> selectedProducts = [];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      buttonSelected = index + 1;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    //print(Theme.of(context).primaryColor);
+    User user = widget.user;
+    double totalSavings = 0;
+
+    double calculateTotalSavings() {
+      for (MapEntry<Product, int> item in Cart.cart.entries) {
+        if (item.key.originalPrice != item.key.currentPrice) {
+          totalSavings += item.key.originalPrice - item.key.currentPrice;
+        }
+      }
+      return totalSavings;
+    }
+
+    void navigateHome() {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Products(user)),
+          (route) => false);
+    }
+
+    void navigateDeals() {
+      //TODO:: Dealsss
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => DealProducts(user)),
+          (route) => false);
+    }
+
+    void navigateQRCode() async {
+      //TODO::: QRRRRRR
+      WidgetsFlutterBinding.ensureInitialized();
+
+      // Obtain a list of the available cameras on the device.
+      final cameras = await availableCameras();
+
+      // Get a specific camera from the list of available cameras.
+      final firstCamera = cameras.first;
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  TakePictureScreen(user, camera: firstCamera)));
+    }
+
+    void navigateCart() {
+      //TODO::
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => CartPage(user)),
+          (route) => false);
+    }
+
+    void _onItemTapped(int index) {
+      setState(() {
+        _selectedIndex = index;
+        buttonSelected = index + 1;
+        if (_selectedIndex == 0) {
+          navigateHome();
+        }
+        if (_selectedIndex == 1) {
+          navigateDeals();
+        } else if (_selectedIndex == 2) {
+          navigateQRCode();
+        } else if (_selectedIndex == 3) {
+          navigateCart();
+        }
+      });
+    }
 
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
               flexibleSpace: Container(
                 decoration: BoxDecoration(
-                  gradient: ColorGradient.getGradient(degree: 140), // Set the gradient
-                ),),
+                  gradient: ColorGradient.getGradient(
+                      degree: 140), // Set the gradient
+                ),
+              ),
               backgroundColor: Style.primaryColor,
               title: Text(
                 "My Cart",
@@ -58,7 +121,7 @@ class _CartState extends State<Cart> {
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 10, right: 10),
-                  height: 0.22 * MediaQuery.of(context).size.height,
+                  height: 0.2 * MediaQuery.of(context).size.height,
                   decoration: BoxDecoration(
                     // color: Colors.blue,
                     borderRadius: BorderRadius.circular(10),
@@ -108,9 +171,9 @@ class _CartState extends State<Cart> {
                                   width: 10,
                                 ),
                                 Text(
-                                  "\$1.25",
+                                  calculateTotalSavings().toString(),
                                   style: GoogleFonts.montserrat(
-                                    fontSize: 30,
+                                    fontSize: 20,
                                     color: Color(0xff4b8c24),
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -125,7 +188,14 @@ class _CartState extends State<Cart> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) => CheckOut(
+                                                totalSavings: totalSavings),
+                                          ),
+                                        );
+                                      },
                                       child: Text(
                                         "Check Out",
                                         style: GoogleFonts.montserrat(
@@ -137,66 +207,22 @@ class _CartState extends State<Cart> {
                                 )
                               ],
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  "Zero",
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 25,
-                                    color: Style.primaryColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "Wastage.",
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 22,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "Go",
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 25,
-                                    color: Style.primaryColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "Green",
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 22,
-                                  ),
-                                ),
-                                // SizedBox(
-                                //   width: 30,
-                                // ),
-                              ],
-                            )
                           ],
                         ),
                       )
                     ],
                   ),
                 ),
-                // Expanded(
-                //   child: ListView.builder(
-                //       padding: const EdgeInsets.all(8),
-                //       itemCount: checkedOutProducts.length,
-                //       itemBuilder: (BuildContext context, int index) {
-                //         return ProductGridViewWidget(checkedOutProducts[index], user?.isAdminstritiveUser ?? false);
-                //       }
-                //   ),
-                // ),
+                Expanded(
+                  child: ListView.builder(
+                      padding: const EdgeInsets.all(8),
+                      itemCount: Cart.cart.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ProductGridViewWidget(
+                            Cart.cart.keys.elementAt(index),
+                            user.isAdminstritiveUser);
+                      }),
+                ),
                 // Expanded(
                 //   child: GridView.builder(
                 //       gridDelegate:

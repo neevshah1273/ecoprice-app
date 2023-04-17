@@ -1,3 +1,12 @@
+import 'dart:async';
+import 'dart:io';
+import 'Cart.dart';
+import 'package:ecoprice/Pages/Style.dart';
+import 'QRCodeScanner.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'Products.dart';
+import 'package:camera/camera.dart';
 import 'package:ecoprice/Pages/Style.dart';
 import 'package:ecoprice/models/user.dart';
 import 'package:ecoprice/services/productService.dart';
@@ -21,7 +30,6 @@ class _DealProductsState extends State<DealProducts> {
   String selectedCategory = "All";
   int _selectedIndex = 1;
   int buttonSelected = 2;
-
 
   List<Product> products = [];
   List<Product> selectedProducts = [];
@@ -79,53 +87,108 @@ class _DealProductsState extends State<DealProducts> {
     });
   }
 
-  void navigateHome(){
-    Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
 
-  }
 
-  void navigateDeals(){
-    Navigator.pushNamedAndRemoveUntil(context, '/deals', (route) => false);
-
-  }
-
-  void navigateQRCode(){
-    Navigator.pushNamedAndRemoveUntil(context, '/qr_scanner', (route) => false);
-
-  }
-
-  void navigateCart(){
-    Navigator.pushNamedAndRemoveUntil(context, '/cart', (route) => false);
-
-  }
-
-  void navigateProduct(String id){
-    Navigator.pushNamedAndRemoveUntil(context, '/product/${id}', (route) => false);
-
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      buttonSelected = index + 1;
-      if(_selectedIndex==0){
-        navigateHome();
-      }
-      if(_selectedIndex==1){
-        navigateDeals();
-      }
-      else if(_selectedIndex==2){
-        navigateQRCode();
-      }
-      else if(_selectedIndex==3){
-        navigateCart();
-      }
-    });
-  }
+  // void navigateHome(){
+  //   Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+  // }
+  //
+  // void navigateDeals(){
+  //   Navigator.pushNamedAndRemoveUntil(context, '/deals', (route) => false);
+  // }
+  //
+  // void navigateQRCode(){
+  //   Navigator.pushNamedAndRemoveUntil(context, '/qr_scanner', (route) => false);
+  // }
+  // void navigateCart(){
+  //   Navigator.pushNamedAndRemoveUntil(context, '/cart', (route) => false);
+  // }
+  //
+  // void navigateProduct(String id){
+  //   Navigator.pushNamedAndRemoveUntil(context, '/product/${id}', (route) => false);
+  // }
+  //
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //     buttonSelected = index + 1;
+  //     if(_selectedIndex == 0){
+  //       navigateHome();
+  //     }
+  //     if(_selectedIndex==1){
+  //       navigateDeals();
+  //     }
+  //     else if(_selectedIndex==2){
+  //       navigateQRCode();
+  //     }
+  //     else if(_selectedIndex==3){
+  //       navigateCart();
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
+    // User user = widget.user;
     //print(Theme.of(context).primaryColor);
+    User user = widget.user;
+
+
+    void navigateHome() {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => Products(user)),
+              (route) => false);
+    }
+
+    void navigateDeals() {
+      //TODO:: Dealsss
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => DealProducts(user)),
+              (route) => false);
+    }
+
+    void navigateQRCode() async {
+      //TODO::: QRRRRRR
+      WidgetsFlutterBinding.ensureInitialized();
+
+      // Obtain a list of the available cameras on the device.
+      final cameras = await availableCameras();
+
+      // Get a specific camera from the list of available cameras.
+      final firstCamera = cameras.first;
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  TakePictureScreen(user, camera: firstCamera)));
+    }
+
+    void navigateCart() {
+      //TODO::
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => CartPage(user)),
+              (route) => false);
+    }
+
+    void _onItemTapped(int index) {
+      setState(() {
+        _selectedIndex = index;
+        buttonSelected = index + 1;
+        if (_selectedIndex == 0) {
+          navigateHome();
+        }
+        if (_selectedIndex == 1) {
+          navigateDeals();
+        } else if (_selectedIndex == 2) {
+          navigateQRCode();
+        } else if (_selectedIndex == 3) {
+          navigateCart();
+        }
+      });
+    }
 
     return SafeArea(
         child: Scaffold(
