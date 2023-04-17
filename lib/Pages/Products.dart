@@ -119,7 +119,7 @@ class _ProductsState extends State<Products> {
 
       // Get a specific camera from the list of available cameras.
       final firstCamera = cameras.first;
-      Navigator.push(context, MaterialPageRoute(builder: (context) => TakePictureScreen(camera: firstCamera)));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => TakePictureScreen(user, camera: firstCamera)));
     }
 
     void navigateCart(){
@@ -141,7 +141,6 @@ class _ProductsState extends State<Products> {
     }
 
     void navigateAddProduct(){
-
       Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ProductAdd(user!)),
@@ -151,24 +150,24 @@ class _ProductsState extends State<Products> {
 
     void _onItemTapped(int index) {
       setState(() {
-        _selectedIndex = index;
-        buttonSelected = index + 1;
-        if(_selectedIndex==0){
-          navigateHome();
-        }
-        if(_selectedIndex==1){
-          navigateDeals();
-        }
-        else if(_selectedIndex==2){
-          navigateQRCode();
-        }
-        else if(_selectedIndex==3){
-          navigateCart();
-        }
+
+      _selectedIndex = index;
+      buttonSelected = index + 1;
+      if(_selectedIndex==0){
+        navigateHome();
+      }
+      if(_selectedIndex==1){
+        navigateDeals();
+      }
+      else if(_selectedIndex==2){
+        navigateQRCode();
+      }
+      else if(_selectedIndex==3){
+        navigateCart();
+      }
+
       });
     }
-
-
 
     return SafeArea(
 
@@ -359,23 +358,6 @@ class _ProductsState extends State<Products> {
                         }
                     ),
                   ),
-
-
-            //       Expanded(
-            //           child: GridView.builder(
-            //           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //             crossAxisCount: 1,
-            //             // mainAxisSpacing: 2.5,
-            //             childAspectRatio: 2,
-            //             // crossAxisSpacing: 2.5
-            //           ),
-            //           itemCount: products.length,
-            //           itemBuilder: (context, index) {
-            //             return ProductGridViewWidget(products[index]);
-            //           }),
-            // ),
-
-
         ]
             ),
             bottomNavigationBar: Container(
@@ -384,9 +366,9 @@ class _ProductsState extends State<Products> {
               gradient: ColorGradient.getGradient(),
             ),
             child: BottomNavigationBar(
+              onTap: (index) => _onItemTapped(index),
               backgroundColor: Colors.transparent,
-              // selectedItemColor: Colors.white,
-              onTap: _onItemTapped,
+              selectedItemColor: Colors.white,
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                     icon: Icon(
@@ -419,7 +401,6 @@ class _ProductsState extends State<Products> {
                     backgroundColor: Colors.transparent)
               ],
               currentIndex: _selectedIndex,
-
               selectedLabelStyle: GoogleFonts.montserrat(
                 fontSize: 15,
 

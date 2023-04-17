@@ -22,8 +22,8 @@ class _DealProductsState extends State<DealProducts> {
 
   List<String> Categories = ["All","Fruits", "Veggies", "Dairy", "Bakery", "Eggs", "Pasta", "Cereals", "Sauces", "Drinks"];
   String selectedCategory = "All";
-  int _selectedIndex = 0;
-  int buttonSelected = 1;
+  int _selectedIndex = 1;
+  int buttonSelected = 2;
 
 
   List<Product> products = [];
@@ -207,8 +207,8 @@ class _DealProductsState extends State<DealProducts> {
                   gradient: ColorGradient.getGradient(),
                 ),
                 child: BottomNavigationBar(
+                  onTap: _onItemTapped,
                   backgroundColor: Colors.transparent,
-                  // selectedItemColor: Colors.white,
                   items: <BottomNavigationBarItem>[
                     BottomNavigationBarItem(
                         icon: Icon(
@@ -241,10 +241,8 @@ class _DealProductsState extends State<DealProducts> {
                         backgroundColor: Colors.transparent)
                   ],
                   currentIndex: _selectedIndex,
-
                   selectedLabelStyle: GoogleFonts.montserrat(
                     fontSize: 15,
-
                   ),
                 )
             )
