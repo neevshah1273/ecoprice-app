@@ -45,4 +45,13 @@ class Product{
 
   final double currentPrice;
 
+  bool equals(Product product){
+    return title == product.title
+          && category == product.category
+          && dueDate == product.dueDate
+          && dailyConsume == product.dailyConsume
+          && quantity == product.quantity
+          && originalPrice == product.originalPrice
+          && currentPrice == product.currentPrice;
+  }
 }

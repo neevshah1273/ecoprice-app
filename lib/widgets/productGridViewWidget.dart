@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:ecoprice/Pages/ProductEdit.dart';
+
 import '../Pages/ItemCounter.dart';
 
 
@@ -24,8 +26,19 @@ class _ProductGridViewWidgetState extends State<ProductGridViewWidget> {
     return bytes;
   }
 
+
+
   @override
   Widget build(BuildContext context) {
+
+
+    void navigateEditProducts() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ProductEdit(widget.product)),
+      );
+    }
+
     return Container(
       height: 150,
       margin: EdgeInsets.only(left: 5, right: 5),
@@ -130,7 +143,9 @@ class _ProductGridViewWidgetState extends State<ProductGridViewWidget> {
             ),
           ),
           widget.isAdmin?
-          TextButton(onPressed: (){}, child: Text("Edit", style: GoogleFonts.montserrat(
+          TextButton(onPressed: (){
+            navigateEditProducts();
+          }, child: Text("Edit", style: GoogleFonts.montserrat(
             color: Colors.green,
             fontSize: 15,
             fontWeight: FontWeight.w500,
