@@ -1,5 +1,6 @@
 import 'package:ecoprice/Pages/CheckOut.dart';
 import 'package:ecoprice/Pages/Style.dart';
+import '../services/productService.dart';
 import 'QRCodeScanner.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,14 +31,7 @@ class _CartPageState extends State<CartPage> {
     User user = widget.user;
     double totalSavings = 0;
 
-    double calculateTotalSavings() {
-      for (MapEntry<Product, int> item in Cart.cart.entries) {
-        if (item.key.originalPrice != item.key.currentPrice) {
-          totalSavings += item.key.originalPrice - item.key.currentPrice;
-        }
-      }
-      return totalSavings;
-    }
+
 
     void navigateHome() {
       Navigator.pushAndRemoveUntil(
@@ -94,6 +88,9 @@ class _CartPageState extends State<CartPage> {
         }
       });
     }
+
+
+
 
     return SafeArea(
         child: Scaffold(
@@ -171,7 +168,7 @@ class _CartPageState extends State<CartPage> {
                                   width: 10,
                                 ),
                                 Text(
-                                  calculateTotalSavings().toString(),
+                                  Cart.savings.toString(),
                                   style: GoogleFonts.montserrat(
                                     fontSize: 20,
                                     color: Color(0xff4b8c24),
@@ -219,7 +216,7 @@ class _CartPageState extends State<CartPage> {
                       itemCount: Cart.cart.length,
                       itemBuilder: (BuildContext context, int index) {
                         return ProductGridViewWidget(
-                            Cart.cart.keys.elementAt(index),
+                            (Cart.cart.keys.elementAt(index)),
                             user.isAdminstritiveUser);
                       }),
                 ),
@@ -439,4 +436,6 @@ class _CartPageState extends State<CartPage> {
             // ),
             ));
   }
+
+
 }
