@@ -1,6 +1,5 @@
 import 'dart:ffi';
 import 'package:ecoprice/Pages/UserLogin.dart';
-
 import 'Style.dart';
 import 'ColorGradient.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class WelcomePage extends StatelessWidget {
   // double screenWidth = MediaQuery.of(context).size.width;
-
   const WelcomePage({Key? key}) : super(key: key);
-
-
-
-
-
   @override
   Widget build(BuildContext context) {
 
@@ -24,13 +17,7 @@ class WelcomePage extends StatelessWidget {
           MaterialPageRoute(builder: (context) => UserLogin()),
               (route) => false
       );
-
     }
-
-
-
-
-
 
     return Scaffold(
         appBar: AppBar(

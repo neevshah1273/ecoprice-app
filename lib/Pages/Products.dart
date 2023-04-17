@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:camera/camera.dart';
 import 'package:ecoprice/Pages/Cart.dart';
 import 'package:ecoprice/Pages/DealProducts.dart';
@@ -15,6 +14,7 @@ import 'package:searchfield/searchfield.dart';
 import '../models/product.dart';
 import '../models/user.dart';
 import 'ColorGradient.dart';
+import 'ProductPage.dart';
 
 class Products extends StatefulWidget {
   User user;
@@ -312,7 +312,7 @@ class _ProductsState extends State<Products> {
                       onSuggestionTap: (value) {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => WelcomePage()),
+                          MaterialPageRoute(builder: (context) => ProductPage(value.item!, user)),
                         );
                       },
                     ),

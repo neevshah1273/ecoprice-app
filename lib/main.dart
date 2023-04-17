@@ -1,9 +1,10 @@
 import 'package:ecoprice/Pages/AdminLogin.dart';
 import 'package:ecoprice/Pages/Cart.dart';
 import 'package:ecoprice/Pages/ItemCounter.dart';
-import 'package:ecoprice/Pages/Product.dart';
+import 'Pages/Speech_Text.dart';
 import 'package:ecoprice/Pages/Products.dart';
 import 'package:ecoprice/Pages/SignUp.dart';
+import 'package:ecoprice/Pages/Speech_Text.dart';
 import 'package:ecoprice/Pages/UserLogin.dart';
 import 'package:ecoprice/Pages/WelcomePage.dart';
 import 'package:ecoprice/Pages/home.dart';
@@ -42,14 +43,13 @@ class MyApp extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       // theme: ThemeData(
       //   primarySwatch: mycolor,
       //   primaryColor: Color(0xff40513b),
       // ),
       debugShowCheckedModeBanner: false,
       home: WelcomePage(),
-
     );
 
   }
