@@ -1,10 +1,11 @@
 
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'product.g.dart';
 
 @JsonSerializable()
-class Product{
+class Product extends Equatable{
 
 
   Product({
@@ -54,4 +55,8 @@ class Product{
           && originalPrice == product.originalPrice
           && currentPrice == product.currentPrice;
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, title, category, image, dueDate, dailyConsume, quantity, originalPrice,currentPrice];
 }

@@ -41,6 +41,7 @@ dependencies:
   qr_code_scanner: ^1.0.1
   searchfield: ^0.6.6
   permission_handler: ^10.2.0
+  equatable: ^2.0.5
 #  camera: ^0.9.4+19
 
 
