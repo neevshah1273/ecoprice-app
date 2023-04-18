@@ -59,91 +59,92 @@ class _ProductPageState extends State<ProductPage> {
         ),)),
       ),
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 50,),
-            Container(
-              padding: EdgeInsets.all(5),
-              height: 200,
-              width: 200,
-              decoration: BoxDecoration(
-                // color: Colors.blue,
-                border: Border.all(color: Colors.black, width: 1.75),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Image.memory(getImage(widget.product.image),),
-            ),
-            SizedBox(height: 50,),
-            Text("${product.title}",
-              style: GoogleFonts.montserrat(
-                color: Color(0xff579a22),
-                fontSize: 35,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            SizedBox(height: 25,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("${product.currentPrice}",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700,
-                  ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 10,),
+              Container(
+                padding: EdgeInsets.all(5),
+                height: 200,
+                width: 200,
+                decoration: BoxDecoration(
+                  // color: Colors.blue,
+                  border: Border.all(color: Colors.black, width: 1.75),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                SizedBox(width: 20,),
-                Text(
-                  "${product.originalPrice}",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 20,
-                    color: Colors.red,
-                    decoration: TextDecoration.lineThrough,
-                    fontWeight: FontWeight.w700,
-                  ),
+                //TODO:: Change
+                child: Image.asset("lib/images/${product.title}.png", width: 75, height: 75,),
+              ),
+              SizedBox(height: 50,),
+              Text("${product.title}",
+                style: GoogleFonts.montserrat(
+                  color: Color(0xff579a22),
+                  fontSize: 35,
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
-            ),
-            SizedBox(height: 20,),
-            Text("Expires In",
-              style: GoogleFonts.montserrat(
-                fontSize: 25,
-                fontWeight: FontWeight.w500,
-                color: Colors.black54,
               ),
-            ),
-            Text("${product.dueDate} days",
-              style: GoogleFonts.montserrat(
-                fontSize: 30,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            CounterApp(product),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xff579a22), // Set the desired color of the ElevatedButton
-                      // You can also customize other properties of the button, such as textStyle, padding, elevation, shape, etc.
-                    ),
-                    onPressed: (){
-                      navigateHome();
-                    },
-                    child: Row(
-                      children: [
-                        Icon(Icons.arrow_back_ios_sharp),
-                        Text("Back", style: GoogleFonts.montserrat(
-                          fontSize: 20,
-                        ),),
-                      ],
+              SizedBox(height: 25,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("\$ ${product.currentPrice}",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
+                  SizedBox(width: 20,),
+                  Text(
+                    "\$ ${product.originalPrice}",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 20,
+                      color: Colors.red,
+                      decoration: TextDecoration.lineThrough,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10,),
+              Text("Expires In",
+                style: GoogleFonts.montserrat(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black54,
                 ),
-                SizedBox(width: 10,),
-                Container(
-                  child: ElevatedButton(
+              ),
+              Text("${product.dueDate} days",
+                style: GoogleFonts.montserrat(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              CounterApp(product),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0xff579a22), // Set the desired color of the ElevatedButton
+                        // You can also customize other properties of the button, such as textStyle, padding, elevation, shape, etc.
+                      ),
+                      onPressed: (){
+                        navigateHome();
+                      },
+                      child: Row(
+                        children: [
+                          Icon(Icons.arrow_back_ios_sharp),
+                          Text("Back", style: GoogleFonts.montserrat(
+                            fontSize: 20,
+                          ),),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10,),
+                  ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xff579a22), // Set the desired color of the ElevatedButton
                       // You can also customize other properties of the button, such as textStyle, padding, elevation, shape, etc.
@@ -160,11 +161,10 @@ class _ProductPageState extends State<ProductPage> {
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
-
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       )
     );

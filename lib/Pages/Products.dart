@@ -62,6 +62,7 @@ class _ProductsState extends State<Products> {
   @override
   void initState () {
     super.initState();
+    print('object');
     WidgetsBinding.instance.addPostFrameCallback((_){
       _getAllproducts();
     });

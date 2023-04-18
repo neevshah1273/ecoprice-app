@@ -36,7 +36,7 @@ class _ProductState extends State<ProductAdd> {
 
         title: productNameController.text,
         category: categoryController.text,
-        image: ss ?? '',
+        //image: ss ?? '',
         dueDate: double.parse(expirationDaysLeftController.text),
         quantity: int.parse(quantityController.text),
         currentPrice:  double.parse(currentPriceController.text),

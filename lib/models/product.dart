@@ -12,7 +12,7 @@ class Product extends Equatable{
     this.id,
     required this.title,
     required this.category,
-    required this.image,
+    //this.image,
     required this.dueDate,
     required this.quantity,
     required this.currentPrice,
@@ -34,7 +34,7 @@ class Product extends Equatable{
   final String category;
 
 
-  final String image;
+  //final String? image;
 
   final double dueDate;
 
@@ -58,5 +58,5 @@ class Product extends Equatable{
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id, title, category, image, dueDate, dailyConsume, quantity, originalPrice,currentPrice];
+  List<Object?> get props => [id, title, category, dueDate, dailyConsume, quantity, originalPrice,currentPrice];
 }

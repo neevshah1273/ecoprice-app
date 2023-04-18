@@ -31,8 +31,6 @@ class _CartPageState extends State<CartPage> {
     User user = widget.user;
     double totalSavings = 0;
 
-
-
     void navigateHome() {
       Navigator.pushAndRemoveUntil(
           context,
@@ -88,9 +86,6 @@ class _CartPageState extends State<CartPage> {
         }
       });
     }
-
-
-
 
     return SafeArea(
         child: Scaffold(
@@ -168,7 +163,7 @@ class _CartPageState extends State<CartPage> {
                                   width: 10,
                                 ),
                                 Text(
-                                  Cart.savings.toString(),
+                                  Cart.savings.toStringAsFixed(2),
                                   style: GoogleFonts.montserrat(
                                     fontSize: 20,
                                     color: Color(0xff4b8c24),

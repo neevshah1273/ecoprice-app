@@ -1,6 +1,7 @@
 import 'package:ecoprice/Pages/Style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ecoprice/models/Cart.dart';
 import 'package:gif_view/gif_view.dart';
 import 'ColorGradient.dart';
 
@@ -60,7 +61,7 @@ class CheckOut extends StatelessWidget {
                 color: Style.primaryColor,
                 fontWeight: FontWeight.w500,
               ),),
-              Text("${totalSavings}", style: GoogleFonts.montserrat(
+              Text(Cart.savings.toStringAsFixed(2), style: GoogleFonts.montserrat(
                 fontSize: 35,
                 color: Color(0xff3f7d27),
                 fontWeight: FontWeight.w500,

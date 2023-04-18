@@ -31,7 +31,6 @@ class _ProductGridViewWidgetState extends State<ProductGridViewWidget> {
   @override
   Widget build(BuildContext context) {
 
-
     void navigateEditProducts() {
       Navigator.push(
         context,
@@ -60,7 +59,7 @@ class _ProductGridViewWidgetState extends State<ProductGridViewWidget> {
               SizedBox(
                 height: 5,
               ),
-              Image.memory(getImage(widget.product.image), width: 75, height: 75,),
+              Image.asset("lib/images/${widget.product.title}.png", width: 75, height: 75,),
               SizedBox(
                 height: 10,
               ),
