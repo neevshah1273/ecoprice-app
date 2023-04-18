@@ -26,11 +26,16 @@ class _ProductPageState extends State<ProductPage> {
   }
 
 
+
   @override
   Widget build(BuildContext context) {
 
     Product product = widget.product;
     User user = widget.user;
+
+
+    print(jsonEncode(product));
+
 
     void navigateCart() {
       //TODO::

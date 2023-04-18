@@ -1,14 +1,16 @@
 import 'dart:async';
-import 'dart:io';
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:camera/camera.dart';
+import 'package:ecoprice/Pages/ProductPage.dart';
 import 'package:ecoprice/Pages/Products.dart';
 import 'package:flutter/material.dart';
-import 'ColorGradient.dart';
 import 'package:ecoprice/Pages/Cart.dart';
 import 'package:ecoprice/Pages/DealProducts.dart';
 import 'package:ecoprice/Pages/ProductAdd.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../models/product.dart';
 import '../models/user.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 class TakePictureScreen extends StatefulWidget {
   User user;
@@ -24,40 +26,23 @@ class TakePictureScreen extends StatefulWidget {
 }
 
 class TakePictureScreenState extends State<TakePictureScreen> {
-  late CameraController _controller;
-  late Future<void> _initializeControllerFuture;
+
 
   int _selectedIndex = 2;
   int buttonSelected = 3;
 
+  MobileScannerController cameraController = MobileScannerController();
+  bool _screenOpened = false;
 
-  @override
-  void initState() {
-    super.initState();
-    // To display the current output from the Camera,
-    // create a CameraController.
-    _controller = CameraController(
-      // Get a specific camera from the list of available cameras.
-      widget.camera,
-      // Define the resolution to use.
-      ResolutionPreset.medium,
-    );
 
-    // Next, initialize the controller. This returns a Future.
-    _initializeControllerFuture = _controller.initialize();
-  }
 
-  @override
-  void dispose() {
-    // Dispose of the controller when the widget is disposed.
-    _controller.dispose();
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
 
     User user = widget.user;
+
     void navigateHome(){
       Navigator.pushAndRemoveUntil(
           context,
@@ -135,124 +120,47 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       });
     }
 
-    return Scaffold(
-      appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: ColorGradient.getGradient(degree: 140), // Set the gradient
-            ),),
-          title: Center(
-            child: Text('Scan QR Code', style: GoogleFonts.montserrat(
-            fontWeight: FontWeight.w400,
-        fontSize: 25,
-      ),),
-          )),
-      body: FutureBuilder<void>(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            // If the Future is complete, display the preview.
-            return CameraPreview(_controller);
-          } else {
-            // Otherwise, display a loading indicator.
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        // Provide an onPressed callback.
-        onPressed: () async {
-          try {
-            // Ensure that the camera is initialized.
-            await _initializeControllerFuture;
 
-            // Attempt to take a picture and get the file `image`
-            // where it was saved.
-            final image = await _controller.takePicture();
 
-            if (!mounted) return;
+      return Scaffold(
+        appBar: AppBar(title: const Text('Mobile Scanner')),
+        body: MobileScanner(
+          fit: BoxFit.contain,
 
-            // If the picture was taken, display it on a new screen.
-            await Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => DisplayPictureScreen(
-                  // Pass the automatically generated path to
-                  // the DisplayPictureScreen widget.
-                  imagePath: image.path,
-                ),
-              ),
-            );
-          } catch (e) {
-            // If an error occurs, log the error to the console.
-            print(e);
-          }
-        },
-        child: const Icon(Icons.camera_alt),
-      ),
-      bottomNavigationBar: Container(
-          height: 60,
-          decoration: BoxDecoration(
-            gradient: ColorGradient.getGradient(),
+          controller: MobileScannerController(
+            // facing: CameraFacing.back,
+            // torchEnabled: false,
+            detectionSpeed: DetectionSpeed.noDuplicates,
+            returnImage: true,
           ),
-          child: BottomNavigationBar(
-            onTap: (index) => _onItemTapped(index),
-            backgroundColor: Colors.transparent,
-            selectedItemColor: Colors.white,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                    color: buttonSelected == 1 ? Colors.white : Colors.black,
-                  ),
-                  label: 'Home',
-                  backgroundColor: Colors.transparent),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.discount,
-                    color: buttonSelected == 2 ? Colors.white : Colors.black,
-                  ),
-                  label: 'Deals',
-                  // backgroundColor: Colors.white,
-                  backgroundColor: Colors.transparent),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.qr_code_scanner,
-                    color: buttonSelected == 3 ? Colors.white : Colors.black,
-                  ),
-                  label: "QR Code",
-                  backgroundColor: Colors.transparent),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.shopping_cart,
-                    color: buttonSelected == 4 ? Colors.white : Colors.black,
-                  ),
-                  label: "Chart",
-                  backgroundColor: Colors.transparent)
-            ],
-            currentIndex: _selectedIndex,
-            selectedLabelStyle: GoogleFonts.montserrat(
-              fontSize: 15,
-
-            ),
-          )
-      ),
-    );
+          onDetect: (capture) {
+            final List<Barcode> barcodes = capture.barcodes;
+            final Uint8List? image = capture.image;
+            for (final barcode in barcodes) {
+              debugPrint('Barcode found! ${barcode.rawValue}');
+              Product? product = Product.fromJson(jsonDecode(barcode.rawValue!));
+              if(product != null){
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProductPage(product, user)),
+                );
+                break;
+              }
+            }
+            if (image != null) {
+              // showDialog(
+              //   context: context,
+              //   builder: (context) =>
+              //       Image(image: MemoryImage(image)),
+              // );
+              Future.delayed(const Duration(seconds: 500), () {
+                Navigator.pop(context);
+              });
+            }
+          },
+        ),
+      );
+    }
   }
-}
 
-// A widget that displays the picture taken by the user.
-class DisplayPictureScreen extends StatelessWidget {
-  final String imagePath;
 
-  const DisplayPictureScreen({super.key, required this.imagePath});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Display the Picture')),
-      // The image is stored as a file on the device. Use the `Image.file`
-      // constructor with the given path to display the image.
-      body: Image.file(File(imagePath)),
-    );
-  }
-}
