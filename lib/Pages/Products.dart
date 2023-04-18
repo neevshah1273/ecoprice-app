@@ -37,9 +37,6 @@ class _ProductsState extends State<Products> {
   List<Product> products = [];
   List<Product> selectedProducts = [];
 
-
-
-
   void onCategorySelection(String selection){
     setState(() {
       selectedCategory = selection;
@@ -66,7 +63,7 @@ class _ProductsState extends State<Products> {
     WidgetsBinding.instance.addPostFrameCallback((_){
       _getAllproducts();
     });
-    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
       // Call the method you want to refresh here
       _getAllproducts();
     });

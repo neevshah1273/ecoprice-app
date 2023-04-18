@@ -83,7 +83,7 @@ class _ProductGridViewWidgetState extends State<ProductGridViewWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "\$" + widget.product.currentPrice.toString(),
+                      "\$" + widget.product.currentPrice.toStringAsFixed(2),
                       style: GoogleFonts.montserrat(
                         fontSize: 17.5,
                         fontWeight: FontWeight.w700,
@@ -92,13 +92,15 @@ class _ProductGridViewWidgetState extends State<ProductGridViewWidget> {
                     SizedBox(
                       width: 5,
                     ),
+                    widget.product.originalPrice!=widget.product.currentPrice?
                     Text(
-                      widget.product.originalPrice.toString(),
+                      widget.product.originalPrice.toStringAsFixed(2),
                       style: GoogleFonts.montserrat(
                           fontSize: 12,
                           decoration: TextDecoration.lineThrough,
                           color: Colors.red),
-                    ),
+                    ):
+                    Container(),
                     // Icon(Icons.edit),
                   ],
                 ),
