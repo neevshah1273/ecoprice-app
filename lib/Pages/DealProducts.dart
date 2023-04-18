@@ -52,6 +52,7 @@ class _DealProductsState extends State<DealProducts> {
   }
 
   void onCategorySelection(String selection) {
+    //print(selectedProducts);
     setState(() {
       selectedCategory = selection;
       if (selectedCategory == "All") {
@@ -78,10 +79,10 @@ class _DealProductsState extends State<DealProducts> {
         }
       });
       if (selectedCategory == "All") {
-        selectedProducts = prod;
+        selectedProducts = products;
       } else {
         selectedProducts = [];
-        prod.forEach((element) {
+        products.forEach((element) {
           if (element.category == selectedCategory) {
             selectedProducts.add(element);
           }
@@ -216,10 +217,10 @@ class _DealProductsState extends State<DealProducts> {
               Expanded(
                 child: ListView.builder(
                     padding: const EdgeInsets.all(8),
-                    itemCount: products.length,
+                    itemCount: selectedProducts.length,
                     itemBuilder: (BuildContext context, int index) {
                       return ProductGridViewWidget(
-                          products[index], widget.user.isAdminstritiveUser);
+                          selectedProducts[index], widget.user.isAdminstritiveUser);
                     }),
               ),
             ]),

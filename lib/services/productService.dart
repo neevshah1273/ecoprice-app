@@ -22,7 +22,7 @@ Future<Product?> createProduct(Product product)async {
           'originalPrice' : product.originalPrice.toString(),
           'currentPrice' : product.currentPrice.toString(),
           'quantity' : product.quantity.toString(),
-          'image' : product.image,
+          //'image' : product.image,
           'category' : product.category
         }
     );
@@ -41,6 +41,7 @@ Future<Product?> createProduct(Product product)async {
 
 
 Future<List<Product>> fetchAllProducts() async{
+
 
   Response response = await http.get(Uri.parse(ServerURL().url + '/product/getAll'));
 

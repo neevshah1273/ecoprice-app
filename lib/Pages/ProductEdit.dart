@@ -38,18 +38,12 @@ class _ProductState extends State<ProductEdit> {
 
     Product product = widget.product;
 
-
-
-
-
-
-
     void edit()async{
       Product newProduct = Product(
           id: product.id,
           title: productNameController.text,
           category: categoryController.text,
-          image: product.image,
+          //image: product.image,
           dueDate: product.dueDate,
           quantity: int.parse(quantityController.text),
           currentPrice: double.parse(currentPriceController.text),
@@ -105,7 +99,7 @@ class _ProductState extends State<ProductEdit> {
                           )),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10.0),
-                        child: Image.asset("lib/images/Tomato.png",
+                        child: Image.asset("lib/images/${widget.product.title}.png",
                             height: MediaQuery.of(context).size.height / 5,
                             width: MediaQuery.of(context).size.width / 3,
                             fit: BoxFit.cover),
