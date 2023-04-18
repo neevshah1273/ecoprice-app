@@ -136,7 +136,7 @@ class _CartPageState extends State<CartPage> {
                                       fontSize: 20,
                                     ),
                                   ),
-                                  Text("Tirth",
+                                  Text(user.fullName!,
                                       style: GoogleFonts.montserrat(
                                         fontSize: 32,
                                         color: Style.primaryColor,
@@ -148,7 +148,7 @@ class _CartPageState extends State<CartPage> {
                                 width: 0.47 * MediaQuery.of(context).size.width,
                               ),
                               Image.asset("lib/images/buy.png",
-                                  width: 100, height: 80)
+                                  width: 60, height: 60)
                             ]),
                             Row(
                               children: [
